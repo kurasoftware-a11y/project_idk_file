@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IDK FILE — 未確認生命体の観測記録を収集・分類する非公式アーカイブ。">
+    <meta name="theme-color" content="#050807">
+    <title>IDK FILE — Unidentified Lifeform Archive</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/archive-data.js" defer></script>
+    <script src="js/archive-render.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#archive">アーカイブへ移動</a>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="IDK FILE トップへ">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">IDK FILE</span>
+        <span class="brand__division">XENO ARCHIVE</span>
+      </a>
+
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="#archive">Archive</a>
+        <a href="#protocol">Protocol</a>
+      </nav>
+
+      <div class="system-status" aria-label="アーカイブ稼働中">
+        <span class="system-status__light" aria-hidden="true"></span>
+        System online
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <img class="hero__image" src="assets/hero.png" alt="地下収容施設の観測チャンバー" fetchpriority="high">
+        <div class="hero__veil" aria-hidden="true"></div>
+        <div class="hero__scan" aria-hidden="true"></div>
+
+        <div class="hero__content">
+          <p class="eyebrow"><span>Restricted records</span> / Sector 09</p>
+          <h1 id="hero-title">
+            <span class="hero__title-main">IDK FILE</span>
+            <span class="hero__title-sub">We document what<br>cannot be explained.</span>
+          </h1>
+          <p class="hero__lead">
+            確認されていない。分類できない。だが、存在した。<br>
+            本アーカイブは未知の生命反応に関する観測記録を収集しています。
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#archive">Access archive <span aria-hidden="true">↘</span></a>
+            <a class="button button--ghost" href="#protocol">Read protocol</a>
+          </div>
+        </div>
+
+        <dl class="hero__telemetry" aria-label="アーカイブ概要">
+          <div>
+            <dt>Records</dt>
+            <dd data-total-records>005</dd>
+          </div>
+          <div>
+            <dt>Clearance</dt>
+            <dd>Level 04</dd>
+          </div>
+          <div>
+            <dt>Last sync</dt>
+            <dd>08.08.26</dd>
+          </div>
+        </dl>
+
+        <p class="hero__scroll" aria-hidden="true">Scroll to inspect</p>
+      </section>
+
+      <section class="archive-section" id="archive" aria-labelledby="archive-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span>Classified index</span> / Active dataset</p>
+            <h2 id="archive-title">Observed entities</h2>
+          </div>
+          <p class="section-heading__copy">
+            取得済みの視覚記録。各画像を選択すると、詳細な観測データを表示します。
+          </p>
+        </div>
+
+        <div class="archive-toolbar" aria-label="アーカイブ絞り込み">
+          <label class="search-field">
+            <span class="search-field__icon" aria-hidden="true"></span>
+            <span class="sr-only">記録を検索</span>
+            <input type="search" id="archive-search" placeholder="SEARCH RECORDS" autocomplete="off">
+          </label>
+
+          <label class="select-field">
+            <span class="sr-only">分類で絞り込む</span>
+            <select id="archive-filter">
+              <option value="all">ALL TYPES</option>
+            </select>
+          </label>
+
+          <p class="archive-result" aria-live="polite">
+            <span id="archive-result-count">00</span> files found
+          </p>
+        </div>
+
+        <div class="archive-grid" id="archive-grid" aria-live="polite"></div>
+
+        <div class="archive-empty" id="archive-empty" hidden>
+          <span>NO SIGNAL</span>
+          <p>条件に一致する観測記録はありません。</p>
+        </div>
+
+        <nav class="pagination" id="archive-pagination" aria-label="アーカイブのページ"></nav>
+      </section>
+
+      <section class="protocol-section" id="protocol" aria-labelledby="protocol-title">
+        <div class="protocol-section__intro">
+          <p class="eyebrow"><span>Archive protocol</span> / Handling rules</p>
+          <h2 id="protocol-title">Do not assume<br>we understand.</h2>
+        </div>
+
+        <ol class="protocol-list">
+          <li>
+            <span class="protocol-list__number">01</span>
+            <div>
+              <h3>Observe</h3>
+              <p>形態、環境、行動を推測と分離して記録する。既知の生物分類を安易に適用しない。</p>
+            </div>
+          </li>
+          <li>
+            <span class="protocol-list__number">02</span>
+            <div>
+              <h3>Classify</h3>
+              <p>視覚情報と検出反応から暫定分類を行う。新しい証拠に応じて記録は更新される。</p>
+            </div>
+          </li>
+          <li>
+            <span class="protocol-list__number">03</span>
+            <div>
+              <h3>Contain</h3>
+              <p>接触より観測を優先する。危険度が未確定の対象には最大限の隔離措置を適用する。</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand brand--footer" href="#top">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">IDK FILE</span>
+      </a>
+      <p>Independent unidentified lifeform archive.</p>
+      <p class="site-footer__code">SYS://IDK-FILE/ARCHIVE</p>
+    </footer>
+
+    <dialog class="detail-modal" id="archive-modal" aria-labelledby="modal-title">
+      <button class="detail-modal__close" type="button" data-modal-close aria-label="詳細を閉じる">
+        <span aria-hidden="true"></span>
+      </button>
+      <div id="modal-content"></div>
+    </dialog>
+  </body>
+</html>
