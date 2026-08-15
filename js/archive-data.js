@@ -57,4 +57,26 @@ window.IDK_ARCHIVE = [
     descriptionEn: "The subject was observed standing motionless at the same location in a residential district late at night for approximately six minutes. Its clothing and body proportions were almost indistinguishable from those of an ordinary adult human. However, no clearly identifiable eyes, nostrils, ears, or other sensory organs could be confirmed on the face, which appeared to consist only of smooth skin-like tissue. For centuries, Japanese folklore has described entities known as noppera-bo: figures that initially appear completely human, only to reveal a face without eyes, a nose, or a mouth when approached. Interestingly, many of these accounts do not describe direct attacks. Instead, the entities often appear to observe the reactions of witnesses before disappearing. This behavior raises the possibility that the noppera-bo was not a supernatural yokai, but an unknown intelligent life form capable of imitating the human body for the purpose of observation or infiltration. If such beings were able to reproduce human clothing, proportions, and movement while failing to accurately reconstruct the complex anatomy of the face, many traditional accounts become surprisingly consistent. It is also possible that their mimicry has improved over time, making modern individuals considerably more difficult to distinguish from ordinary humans.",
     traits: ["人間擬態", "顔面欠損", "行動観察"]
   },
+  {
+    id: "003",
+    name: "Abyssal Strix",
+    nameJa: "アビサル・ストリクス",
+    category: "abyssal",
+    categoryLabel: "Abyssal",
+    risk: "gamma",
+    riskLabel: "Gamma risk",
+    status: "Observed",
+    image: [
+      "assets/archive/003_1.png",
+      "assets/archive/003_2.png"
+    ],
+    instagram: "",
+    location: "Monterey Canyon, California, US",
+    recorded: "2007.11.03",
+    summary: "米国カリフォルニア沖の深海探査映像に記録された、フクロウに似た頭部を持つ大型の人型水生生命体。",
+    summaryEn: "A large aquatic humanoid life form with an owl-like head recorded during a deep-sea survey off the coast of California, United States.",
+    description: "対象はモントレー海底谷で行われていた無人探査機による深海調査中、水深約1,340メートル地点で約18分間にわたり記録された。全長は映像上の推定で約1.8〜2.1メートル。細長い四肢と半透明の灰白色の皮膚を持ち、頭部にはフクロウを思わせる大きな前向きの眼と、嘴に似た硬質構造が確認されている。対象は海底を歩行するのではなく、身体をほぼ直立させた状態でゆっくりと遊泳しており、腕や脚による明確な推進運動はほとんど見られなかった。特に注目されるのは眼球で、探査機の照明を受けた際、一般的な深海魚とは異なる強い反射を示した。頭部周辺に存在する細い繊維状器官についても、羽毛ではなく水流や微細な振動を感知する感覚器官である可能性が指摘されている。既知の海洋生物との形態的な一致は確認されておらず、その人間に近い骨格構造が深海環境で独立して進化した結果なのか、あるいは地球外起源の生命体が海洋環境へ適応したものなのかは不明である。その外見がフクロウに酷似している理由についても、両者に直接的な生物学的関係がある証拠は存在しない。",
+    descriptionEn: "The subject was recorded for approximately 18 minutes at a depth of about 1,340 meters during an unmanned submersible survey of Monterey Canyon. Its total length was estimated from the footage to be approximately 1.8 to 2.1 meters. The organism possessed elongated limbs, translucent grayish-white skin, large forward-facing eyes resembling those of an owl, and a hardened structure similar in appearance to a beak. Rather than walking along the seafloor, the subject moved slowly through the water while maintaining an almost upright posture, with little visible propulsion from its arms or legs. Of particular interest were its eyes, which produced an unusually intense reflection when exposed to the submersible's lights, differing from the response typically observed in known deep-sea fish. Fine filament-like structures surrounding the head may not be feathers at all, but sensory organs capable of detecting water movement and subtle vibrations. No known marine species has been found to closely match its morphology. It remains unclear whether its humanoid skeletal structure represents an extreme case of convergent evolution in the deep ocean or evidence of an extraterrestrial organism adapted to Earth's marine environment. Despite its striking resemblance to an owl, no evidence currently suggests any direct biological relationship between the two.",
+    traits: ["暗所視覚", "深海適応", "水流感知"]
+  },
 ];
