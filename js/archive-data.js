@@ -79,4 +79,26 @@ window.IDK_ARCHIVE = [
     descriptionEn: "The subject was recorded for approximately 18 minutes at a depth of about 1,340 meters during an unmanned submersible survey of Monterey Canyon. Its total length was estimated from the footage to be approximately 1.8 to 2.1 meters. The organism possessed elongated limbs, translucent grayish-white skin, large forward-facing eyes resembling those of an owl, and a hardened structure similar in appearance to a beak. Rather than walking along the seafloor, the subject moved slowly through the water while maintaining an almost upright posture, with little visible propulsion from its arms or legs. Of particular interest were its eyes, which produced an unusually intense reflection when exposed to the submersible's lights, differing from the response typically observed in known deep-sea fish. Fine filament-like structures surrounding the head may not be feathers at all, but sensory organs capable of detecting water movement and subtle vibrations. No known marine species has been found to closely match its morphology. It remains unclear whether its humanoid skeletal structure represents an extreme case of convergent evolution in the deep ocean or evidence of an extraterrestrial organism adapted to Earth's marine environment. Despite its striking resemblance to an owl, no evidence currently suggests any direct biological relationship between the two.",
     traits: ["暗所視覚", "深海適応", "水流感知"]
   },
+  {
+    id: "004",
+    name: "Rain Feeder",
+    nameJa: "雨喰い",
+    category: "terrestrial",
+    categoryLabel: "Terrestrial",
+    risk: "beta",
+    riskLabel: "Beta risk",
+    status: "Observed",
+    image: [
+      "assets/archive/004_1.png",
+      "assets/archive/004_2.png"
+    ],
+    instagram: "",
+    location: "Cordillera Real, La Paz, BO",
+    recorded: "2017.02.11",
+    summary: "ボリビア・アンデス山脈の豪雨時にのみ姿を現す、背部に無数の吸水孔を持つ大型四足生命体。",
+    summaryEn: "A large quadrupedal life form with numerous water-absorbing pores across its back, observed only during heavy rainfall in the Bolivian Andes.",
+    description: "最初に異変が確認されたのは、生物そのものではなく、その周囲の地面だった。2017年2月、ボリビア西部の山岳地帯で豪雨後の地質調査を行っていた作業員が、降雨中にもかかわらず直径数メートルだけ完全に乾燥した岩場を発見した。その中心には、四肢を大きく開いて伏せる未知の生物がいたという。対象の背部には蜂の巣にも似た無数の孔が並び、雨水が皮膚に触れると流れ落ちることなく、そのまま内部へ吸収されていった。顔面には眼球や鼻孔に相当する明確な器官が見られず、口も確認されていない。にもかかわらず、観測者の移動に反応し、視界の外側へ回り込むような行動を示した。後日設置された自動撮影装置には、降雨開始から約18分後に岩の裂け目から這い出し、雨脚が弱まる直前に再び地下へ戻る姿が記録されている。周辺では古くから『雨の中にだけ現れる裸の獣』について語られていたが、目撃地点はいずれも洞窟や地下水脈の近くに集中している。水そのものを摂取しているのか、雨水に含まれる微生物や鉱物を濾過しているのかは不明である。より奇妙なのは、対象が滞在した場所では数十分にわたり雨水が溜まらず、土壌中の水分量まで急激に低下する点だ。もしこれが単なる吸水能力ではなく、周囲から能動的に水分を奪う生理機構であるならば、『雨喰い』という呼称は比喩ではない可能性がある。",
+    descriptionEn: "The first anomaly was not the creature itself, but the ground surrounding it. In February 2017, workers conducting a geological survey after heavy rainfall in the mountains of western Bolivia discovered a patch of exposed rock several meters wide that was completely dry despite the continuing downpour. At its center was an unidentified organism crouched low with all four limbs spread across the surface. Its back was covered in hundreds of honeycomb-like pores, and water appeared to vanish directly into them rather than running off the body. No recognizable eyes, nostrils, or mouth were visible. Even so, the subject reacted to the observers' movements and repeatedly repositioned itself as though attempting to remain outside their direct line of sight. Automated cameras installed later recorded the organism emerging from a narrow rock fissure approximately eighteen minutes after rainfall began, then retreating underground shortly before the rain weakened. Local accounts have long described a 'naked animal that exists only in the rain,' with reported sightings clustered around caves and subterranean water systems. It remains unknown whether the organism consumes water itself or filters microorganisms and minerals carried within it. More unusual is the condition left behind: for several minutes after the creature departs, water fails to collect around the site, while moisture levels in the surrounding soil drop sharply. If this phenomenon is caused by an active biological mechanism capable of drawing water from its immediate environment, the name 'Rain Feeder' may be considerably more literal than originally assumed.",
+    traits: ["背部吸水孔", "降雨時活動", "地下潜伏"]
+  },
 ];
