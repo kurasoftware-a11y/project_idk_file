@@ -101,4 +101,26 @@ window.IDK_ARCHIVE = [
     descriptionEn: "The first anomaly was not the creature itself, but the ground surrounding it. In February 2017, workers conducting a geological survey after heavy rainfall in the mountains of western Bolivia discovered a patch of exposed rock several meters wide that was completely dry despite the continuing downpour. At its center was an unidentified organism crouched low with all four limbs spread across the surface. Its back was covered in hundreds of honeycomb-like pores, and water appeared to vanish directly into them rather than running off the body. No recognizable eyes, nostrils, or mouth were visible. Even so, the subject reacted to the observers' movements and repeatedly repositioned itself as though attempting to remain outside their direct line of sight. Automated cameras installed later recorded the organism emerging from a narrow rock fissure approximately eighteen minutes after rainfall began, then retreating underground shortly before the rain weakened. Local accounts have long described a 'naked animal that exists only in the rain,' with reported sightings clustered around caves and subterranean water systems. It remains unknown whether the organism consumes water itself or filters microorganisms and minerals carried within it. More unusual is the condition left behind: for several minutes after the creature departs, water fails to collect around the site, while moisture levels in the surrounding soil drop sharply. If this phenomenon is caused by an active biological mechanism capable of drawing water from its immediate environment, the name 'Rain Feeder' may be considerably more literal than originally assumed.",
     traits: ["背部吸水孔", "降雨時活動", "地下潜伏"]
   },
+  {
+    id: "005",
+    name: "Longstep",
+    nameJa: "長歩個体",
+    category: "alpine",
+    categoryLabel: "Alpine",
+    risk: "beta",
+    riskLabel: "Beta risk",
+    status: "Observed",
+    image: [
+      "assets/archive/005_1.png",
+      "assets/archive/005_2.png"
+    ],
+    instagram: "",
+    location: "Ben Macdui, Cairngorms, Scotland, UK",
+    recorded: "2019.10.14",
+    summary: "スコットランド・ベンマクドゥイ山中の濃霧下で撮影された、異常に長い肢を持つ六脚性の高山生物。",
+    summaryEn: "A six-limbed alpine organism with abnormally elongated legs, recorded in dense fog on Ben Macdui in the Scottish Cairngorms.",
+    description: "最初に記録されたのは姿ではなく、足音だった。登山者が濃霧の中を下山していた際、自身の歩調とは一致しない重い衝撃音が約40メートル後方から断続的に続き、その間隔は一歩ごとに5〜7メートル移動しているように聞こえたという。回収された映像には、岩稜を跨ぐように移動する六本の細長い肢と、その中央に吊り下がる小型の胴体がわずかに記録されていた。対象の本体は人間よりも小さいと推定される一方、各肢は数メートルに達し、霧の中では複数の肢が重なって巨大な直立人影のように見えることがある。ベンマクドゥイ周辺では古くから「Am Fear Liath Mòr（Big Grey Man）」と呼ばれる怪異が語られており、姿を確認できないまま巨大な足音に追跡されたという証言が繰り返し残されている。これらを心理現象や錯覚だけで説明する説もあるが、長歩個体が人間の歩行振動を感知し、一定距離を保ったまま追従する習性を持つのであれば、過去の証言には別の解釈が生じる。さらに対象の接近時には、映像機器のマイクに可聴域以下の周期的振動が記録されている。これが生体由来の低周波である場合、目撃者が共通して訴える理由のない圧迫感や強い恐怖感も、単なる伝承ではなかった可能性がある。",
+    descriptionEn: "The first thing recorded was not its appearance, but its footsteps. While descending through dense fog, a mountaineer reported a series of heavy impacts approximately 40 meters behind him, moving at a rhythm that did not match his own. Judging from the intervals between each impact, whatever was following appeared to cover roughly five to seven meters with every step. Recovered footage later revealed several extremely elongated limbs crossing the rocky ridge, with a comparatively small body suspended between them. Although the central body is estimated to be smaller than a human, each of its six limbs may extend several meters. In dense fog, overlapping limbs can briefly resemble the silhouette of an enormous upright figure. For generations, the area around Ben Macdui has been associated with a presence known as Am Fear Liath Mòr, or the “Big Grey Man,” often described not through clear visual sightings but through accounts of enormous footsteps following climbers through the mist. Such reports are commonly attributed to psychological effects, acoustics, or optical illusion. However, if Longstep is capable of detecting human footfall vibrations and maintaining a fixed distance while tracking them, some of these historical accounts may warrant a different interpretation. During the recorded encounter, the camera microphone also captured periodic vibrations below the normal range of human hearing. If these frequencies are biological in origin, the intense pressure and irrational fear repeatedly described by witnesses may not have been products of folklore alone.",
+    traits: ["超長肢歩行", "振動追跡", "低周波発生"]
+  },
 ];
