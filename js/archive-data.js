@@ -123,4 +123,26 @@ window.IDK_ARCHIVE = [
     descriptionEn: "The first thing recorded was not its appearance, but its footsteps. While descending through dense fog, a mountaineer reported a series of heavy impacts approximately 40 meters behind him, moving at a rhythm that did not match his own. Judging from the intervals between each impact, whatever was following appeared to cover roughly five to seven meters with every step. Recovered footage later revealed several extremely elongated limbs crossing the rocky ridge, with a comparatively small body suspended between them. Although the central body is estimated to be smaller than a human, each of its six limbs may extend several meters. In dense fog, overlapping limbs can briefly resemble the silhouette of an enormous upright figure. For generations, the area around Ben Macdui has been associated with a presence known as Am Fear Liath Mòr, or the “Big Grey Man,” often described not through clear visual sightings but through accounts of enormous footsteps following climbers through the mist. Such reports are commonly attributed to psychological effects, acoustics, or optical illusion. However, if Longstep is capable of detecting human footfall vibrations and maintaining a fixed distance while tracking them, some of these historical accounts may warrant a different interpretation. During the recorded encounter, the camera microphone also captured periodic vibrations below the normal range of human hearing. If these frequencies are biological in origin, the intense pressure and irrational fear repeatedly described by witnesses may not have been products of folklore alone.",
     traits: ["超長肢歩行", "振動追跡", "低周波発生"]
   },
+  {
+    id: "006",
+    name: "Tota Crownback",
+    nameJa: "トタ冠背個体",
+    category: "lacustrine",
+    categoryLabel: "Lacustrine",
+    risk: "beta",
+    riskLabel: "Beta risk",
+    status: "Observed",
+    image: [
+      "assets/archive/006_1.png",
+      "assets/archive/006_2.png"
+    ],
+    instagram: "",
+    location: "Lake Tota, Boyacá, CO",
+    recorded: "2017.11.03",
+    summary: "コロンビア・トタ湖の深水域で記録された、背部に連続した隆起構造を持つ大型水棲脊椎動物。",
+    summaryEn: "A massive aquatic vertebrate with a series of raised dorsal structures, recorded in the deep waters of Lake Tota, Colombia.",
+    description: "対象が最初に確認されたのは、トタ湖西岸から約1.8km離れた水域で行われていた夜間水質調査中だった。調査船のソナーには全長約9mと推定される単一の反応が記録され、その約6分後、水面直下を移動する黒い背部と複数の隆起構造が赤外線カメラに映り込んだ。頭部は胴体に対して異常に幅広く、眼は側面の低い位置にあり、頭頂付近には一対の大きな呼吸孔が存在すると考えられている。暗所や霧の中で頭部だけを水面へ出した場合、その輪郭は大型の牛や角を持つ獣にも見える。トタ湖周辺には古くから、湖底に巨大な蛇あるいは怪物が潜むという伝承が残されており、植民地期にも黒い巨大魚や牛に似た頭部を持つ生物についての記述が存在する。これらは長らく神話や誇張された目撃談として扱われてきた。しかし近年得られた映像と音響記録を比較すると、蛇のような長い身体、魚に似た水中行動、そして牛を思わせる頭部という一見矛盾した特徴は、一種の大型水棲動物を異なる距離と角度から観察した結果として説明できる。さらに複数回のソナー調査では、湖底付近から同時に三つ以上の大型反応が記録されている。現在もっとも問題視されているのは、この生物がトタ湖に迷入した一個体ではなく、外部からほぼ隔離された高地湖の中で長期間にわたり繁殖を続けている可能性である。",
+    descriptionEn: "The subject was first detected during a nighttime water-quality survey approximately 1.8 kilometers from the western shore of Lake Tota. Sonar recorded a single target estimated to be roughly nine meters in length. Six minutes later, an infrared camera captured a dark dorsal surface moving just beneath the water, marked by a series of pronounced raised structures. The head appears disproportionately broad in relation to the body, with low-set lateral eyes and what are believed to be a pair of large respiratory openings near the top of the skull. When only the head breaks the surface in darkness or heavy mist, its silhouette can resemble that of a large bovine or horned animal. For centuries, communities around Lake Tota have preserved stories of an enormous serpent or monstrous creature inhabiting its depths, while colonial-era accounts also describe a huge black fish with a head resembling that of a bull. Such reports were long dismissed as mythology or exaggeration. Recent visual and acoustic evidence, however, suggests that these apparently conflicting descriptions—a serpent-like body, fish-like aquatic behavior, and a bovine-shaped head—could all result from observing the same large aquatic species from different distances and angles. More concerning are repeated sonar surveys in which three or more large returns have been detected simultaneously near the lakebed. The primary question is therefore no longer whether a single unknown animal entered Lake Tota, but whether an isolated breeding population has persisted within the high-altitude lake for generations.",
+    traits: ["冠状背隆起", "頭頂呼吸孔", "深水潜伏"]
+  },
 ];
