@@ -145,4 +145,26 @@ window.IDK_ARCHIVE = [
     descriptionEn: "The subject was first detected during a nighttime water-quality survey approximately 1.8 kilometers from the western shore of Lake Tota. Sonar recorded a single target estimated to be roughly nine meters in length. Six minutes later, an infrared camera captured a dark dorsal surface moving just beneath the water, marked by a series of pronounced raised structures. The head appears disproportionately broad in relation to the body, with low-set lateral eyes and what are believed to be a pair of large respiratory openings near the top of the skull. When only the head breaks the surface in darkness or heavy mist, its silhouette can resemble that of a large bovine or horned animal. For centuries, communities around Lake Tota have preserved stories of an enormous serpent or monstrous creature inhabiting its depths, while colonial-era accounts also describe a huge black fish with a head resembling that of a bull. Such reports were long dismissed as mythology or exaggeration. Recent visual and acoustic evidence, however, suggests that these apparently conflicting descriptions—a serpent-like body, fish-like aquatic behavior, and a bovine-shaped head—could all result from observing the same large aquatic species from different distances and angles. More concerning are repeated sonar surveys in which three or more large returns have been detected simultaneously near the lakebed. The primary question is therefore no longer whether a single unknown animal entered Lake Tota, but whether an isolated breeding population has persisted within the high-altitude lake for generations.",
     traits: ["冠状背隆起", "頭頂呼吸孔", "深水潜伏"]
   },
+  {
+    id: "007",
+    name: "Red False-Maw",
+    nameJa: "赤腹偽口個体",
+    category: "terrestrial",
+    categoryLabel: "Terrestrial",
+    risk: "beta",
+    riskLabel: "Beta risk",
+    status: "Observed",
+    image: [
+      "assets/archive/007_1.png",
+      "assets/archive/007_2.png"
+    ],
+    instagram: "",
+    location: "Amazonas, Brazil",
+    recorded: "2008.11.07",
+    summary: "ブラジル・アマゾナス州の浸水林で、腹部に口腔状器官を持つ大型の毛状陸棲生物が記録された。",
+    summaryEn: "A large, fur-covered terrestrial organism with a mouth-like abdominal structure recorded in a flooded forest in Amazonas, Brazil.",
+    description: "対象は夜間調査中、支流沿いの浸水林で発見された。直立時の推定体高は約2.2メートル。全身は湿った赤褐色の長い体毛に覆われ、前肢の先端には樹皮を剥離するのに適した大型の湾曲爪が確認されている。最も特徴的なのは胸腹部中央に存在する楕円形の器官で、外見上は複数列の歯を備えた巨大な口腔のように見える。しかし映像解析では咀嚼や摂食に用いられた形跡はなく、内部の白色構造も歯ではなく腺組織である可能性が高い。対象が接近した直後、調査員は強烈な腐敗臭と一時的な目眩を報告しており、この器官は威嚇時に揮発性物質を放出する大型臭腺ではないかと考えられている。アマゾン各地には古くから、巨大な毛深い身体、長い爪、耐え難い悪臭、そして腹部に口を持つ怪物についての伝承が残されている。特にマピングアリと呼ばれる存在との形態的一致は無視できない。ただし、伝承に語られる特徴のすべてが本個体に確認されたわけではない。むしろ未知の大型哺乳類の防御器官が暗闇の中で『腹の口』と誤認され、その断片的な目撃が世代を越えて怪物像へ変化した可能性がある。現在までに明確な摂食行動は記録されておらず、攻撃性についても接近時の威嚇行動以外は確認されていない。",
+    descriptionEn: "The subject was encountered during a nocturnal survey in a seasonally flooded forest near an Amazon tributary. Its estimated standing height was approximately 2.2 meters. The body was covered in long, wet reddish-brown hair, while the forelimbs terminated in large curved claws apparently suited for stripping bark. Its most distinctive feature was an oval organ located along the center of the chest and abdomen, superficially resembling an enormous mouth lined with several rows of teeth. Frame analysis, however, revealed no evidence that the structure was used for biting or feeding, and the pale internal formations may be glandular tissue rather than teeth. Immediately after the subject approached, members of the survey team reported an intense odor resembling advanced decomposition, accompanied by temporary dizziness. The organ may therefore function as an enlarged defensive scent gland capable of releasing volatile compounds when threatened. Across the Amazon, long-standing traditions describe a massive hairy creature with elongated claws, an unbearable stench, and, in some accounts, a mouth located on its abdomen. The similarities to traditions surrounding the Mapinguari are difficult to ignore. Not every legendary characteristic, however, has been observed in this specimen. A more plausible possibility is that an unfamiliar defensive organ in an undiscovered large mammal was repeatedly mistaken for an abdominal mouth in low visibility, with fragmented encounters gradually developing into the monster described in local folklore. No confirmed feeding behavior involving the organ has yet been documented, and aggression appears limited to defensive displays at close range.",
+    traits: ["腹部偽口器官", "揮発性防御臭", "大型湾曲爪"]
+  },
 ];

@@ -1,7 +1,11 @@
 (function () {
   "use strict";
 
-  const archive = Array.isArray(window.IDK_ARCHIVE) ? window.IDK_ARCHIVE : [];
+  const archive = Array.isArray(window.IDK_ARCHIVE)
+    ? [...window.IDK_ARCHIVE].sort((a, b) =>
+        String(b.id).localeCompare(String(a.id), undefined, { numeric: true })
+      )
+    : [];
   const itemsPerPage = Math.max(1, Number(window.IDK_ARCHIVE_SETTINGS?.itemsPerPage) || 6);
   const imageInterval = Math.max(1000, Number(window.IDK_ARCHIVE_SETTINGS?.imageInterval) || 5000);
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
@@ -9,6 +13,7 @@
 
   const grid = document.getElementById("archive-grid");
   const pagination = document.getElementById("archive-pagination");
+  const paginationTop = document.getElementById("archive-pagination-top");
   const searchInput = document.getElementById("archive-search");
   const filterSelect = document.getElementById("archive-filter");
   const resultCount = document.getElementById("archive-result-count");
@@ -228,6 +233,12 @@
       <span class="pagination__status">PAGE ${pad(state.page)} / ${pad(totalPages)}</span>
       <button class="pagination__arrow" type="button" data-page="${state.page + 1}" ${state.page === totalPages ? "disabled" : ""} aria-label="次のページ">→</button>
     `;
+
+    paginationTop.innerHTML = `
+      <button class="pagination__arrow" type="button" data-page="${state.page - 1}" ${state.page === 1 ? "disabled" : ""} aria-label="前のページ">←</button>
+      <span class="pagination__status">PAGE ${pad(state.page)} / ${pad(totalPages)}</span>
+      <button class="pagination__arrow" type="button" data-page="${state.page + 1}" ${state.page === totalPages ? "disabled" : ""} aria-label="次のページ">→</button>
+    `;
   }
 
   function updateUrl(recordId) {
@@ -345,12 +356,15 @@
     if (item) openRecord(item);
   });
 
-  pagination.addEventListener("click", (event) => {
+  function handlePaginationClick(event) {
     const trigger = event.target.closest("[data-page]");
     if (!trigger || trigger.disabled) return;
     state.page = Number(trigger.dataset.page);
-    renderArchive({ scroll: true });
-  });
+    renderArchive({ scroll: event.currentTarget === pagination });
+  }
+
+  pagination.addEventListener("click", handlePaginationClick);
+  paginationTop.addEventListener("click", handlePaginationClick);
 
   modalClose.addEventListener("click", closeRecord);
   modal.addEventListener("click", (event) => {

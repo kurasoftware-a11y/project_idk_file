@@ -876,6 +876,21 @@ img {
   border-bottom: 1px solid var(--line);
 }
 
+.pagination--top {
+  min-height: 3.25rem;
+  margin: -0.75rem 0 1.5rem;
+  grid-template-columns: auto auto auto;
+  justify-content: end;
+  gap: 0.75rem;
+  border-top: 0;
+}
+
+.pagination--top .pagination__status {
+  display: block;
+  min-width: 7.5rem;
+  text-align: center;
+}
+
 .pagination button {
   min-width: 2.4rem;
   height: 2.4rem;
