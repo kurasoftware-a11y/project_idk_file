@@ -6,23 +6,26 @@
     <meta name="description" content="IDK FILE — 未確認生命体の観測記録を収集・分類する非公式アーカイブ。">
     <meta name="theme-color" content="#050807">
     <title>IDK FILE — Unidentified Lifeform Archive</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/archive-data.js" defer></script>
     <script src="js/archive-render.js" defer></script>
   </head>
-  <body>
-    <a class="skip-link" href="#archive">アーカイブへ移動</a>
+  <body class="archive-home">
+    <a class="skip-link" href="#archive">記録一覧へ移動</a>
 
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="IDK FILE トップへ">
-        <span class="brand__mark" aria-hidden="true"></span>
+        <img class="brand__icon" src="assets/idk-icon-64.png" alt="" width="64" height="64">
         <span class="brand__name">IDK FILE</span>
         <span class="brand__division">XENO ARCHIVE</span>
       </a>
 
       <nav class="site-nav" aria-label="メインナビゲーション">
-        <a href="#archive">Archive</a>
-        <a href="#protocol">Protocol</a>
+        <a href="#archive" aria-current="page">Archive</a>
+        <button type="button" data-protocol-open>Protocol</button>
       </nav>
 
       <div class="system-status" aria-label="アーカイブ稼働中">
@@ -32,7 +35,7 @@
     </header>
 
     <main>
-      <section class="hero" id="top" aria-labelledby="hero-title">
+      <section class="hero hero--compact" id="top" aria-labelledby="hero-title">
         <img class="hero__image" src="assets/hero.png" alt="地下収容施設の観測チャンバー" fetchpriority="high">
         <div class="hero__veil" aria-hidden="true"></div>
         <div class="hero__scan" aria-hidden="true"></div>
@@ -49,7 +52,7 @@
           </p>
           <div class="hero__actions">
             <a class="button button--primary" href="#archive">Access archive <span aria-hidden="true">↘</span></a>
-            <a class="button button--ghost" href="#protocol">Read protocol</a>
+            <button class="button button--ghost" type="button" data-protocol-open>Read protocol</button>
           </div>
         </div>
 
@@ -74,11 +77,11 @@
       <section class="archive-section" id="archive" aria-labelledby="archive-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow"><span>Classified index</span> / Active dataset</p>
+            <p class="eyebrow"><span>Classified index</span> / <span data-total-records>000</span> records</p>
             <h2 id="archive-title">Observed entities</h2>
           </div>
           <p class="section-heading__copy">
-            取得済みの視覚記録。各画像を選択すると、詳細な観測データを表示します。
+            取得済みの視覚記録。検索または分類で対象を絞り込み、各画像から詳細な観測データを確認できます。
           </p>
         </div>
 
@@ -97,26 +100,45 @@
           </label>
 
           <p class="archive-result" aria-live="polite">
-            <span id="archive-result-count">00</span> files found
+            <span data-filtered-count>00</span> files found
           </p>
         </div>
 
-        <nav class="pagination pagination--top" id="archive-pagination-top" aria-label="アーカイブの簡易ページ移動"></nav>
-
-        <div class="archive-grid" id="archive-grid" aria-live="polite"></div>
+        <div class="archive-grid" id="archive-grid" data-archive-mode="infinite" aria-live="polite"></div>
 
         <div class="archive-empty" id="archive-empty" hidden>
           <span>NO SIGNAL</span>
           <p>条件に一致する観測記録はありません。</p>
         </div>
 
-        <nav class="pagination" id="archive-pagination" aria-label="アーカイブのページ"></nav>
+        <div class="archive-load" id="archive-load">
+          <p class="archive-load__progress" aria-live="polite">
+            <span data-loaded-count>00</span> / <span data-filtered-count>00</span> records loaded
+          </p>
+          <button class="button button--ghost" id="archive-load-more" type="button">Load more <span aria-hidden="true">↓</span></button>
+          <p class="archive-load__end" id="archive-end" hidden>END OF RECORDS // ARCHIVE COMPLETE</p>
+          <div class="archive-sentinel" id="archive-sentinel" aria-hidden="true"></div>
+        </div>
       </section>
+    </main>
 
-      <section class="protocol-section" id="protocol" aria-labelledby="protocol-title">
+    <footer class="site-footer">
+      <a class="brand brand--footer" href="#top">
+        <img class="brand__icon" src="assets/idk-icon-64.png" alt="" width="64" height="64">
+        <span class="brand__name">IDK FILE</span>
+      </a>
+      <p>Independent unidentified lifeform archive.</p>
+      <button class="site-footer__protocol" type="button" data-protocol-open>Archive protocol</button>
+    </footer>
+
+    <dialog class="protocol-modal" id="protocol-modal" aria-labelledby="protocol-modal-title">
+      <button class="detail-modal__close" type="button" data-protocol-close aria-label="Protocolを閉じる">
+        <span aria-hidden="true"></span>
+      </button>
+      <section class="protocol-section protocol-section--modal">
         <div class="protocol-section__intro">
           <p class="eyebrow"><span>Archive protocol</span> / Handling rules</p>
-          <h2 id="protocol-title">Do not assume<br>we understand.</h2>
+          <h2 id="protocol-modal-title">Do not assume<br>we understand.</h2>
         </div>
 
         <ol class="protocol-list">
@@ -165,16 +187,7 @@
           </li>
         </ol>
       </section>
-    </main>
-
-    <footer class="site-footer">
-      <a class="brand brand--footer" href="#top">
-        <span class="brand__mark" aria-hidden="true"></span>
-        <span class="brand__name">IDK FILE</span>
-      </a>
-      <p>Independent unidentified lifeform archive.</p>
-      <p class="site-footer__code">SYS://IDK-FILE/ARCHIVE</p>
-    </footer>
+    </dialog>
 
     <dialog class="detail-modal" id="archive-modal" aria-labelledby="modal-title">
       <button class="detail-modal__close" type="button" data-modal-close aria-label="詳細を閉じる">

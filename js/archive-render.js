@@ -12,19 +12,28 @@
   const slideshowTimers = new Map();
 
   const grid = document.getElementById("archive-grid");
-  const pagination = document.getElementById("archive-pagination");
-  const paginationTop = document.getElementById("archive-pagination-top");
+  const archiveMode = grid?.dataset.archiveMode || "infinite";
+  const isPreview = archiveMode === "preview";
+  const previewCount = Math.max(1, Number(grid?.dataset.previewCount) || 3);
   const searchInput = document.getElementById("archive-search");
   const filterSelect = document.getElementById("archive-filter");
-  const resultCount = document.getElementById("archive-result-count");
+  const filteredCountElements = document.querySelectorAll("[data-filtered-count]");
+  const loadedCountElements = document.querySelectorAll("[data-loaded-count]");
   const emptyState = document.getElementById("archive-empty");
+  const archiveLoad = document.getElementById("archive-load");
+  const loadMoreButton = document.getElementById("archive-load-more");
+  const archiveEnd = document.getElementById("archive-end");
+  const archiveSentinel = document.getElementById("archive-sentinel");
   const modal = document.getElementById("archive-modal");
   const modalContent = document.getElementById("modal-content");
   const modalClose = modal.querySelector("[data-modal-close]");
+  const protocolModal = document.getElementById("protocol-modal");
+  const protocolOpenButtons = document.querySelectorAll("[data-protocol-open]");
+  const protocolClose = protocolModal?.querySelector("[data-protocol-close]");
 
   const initialParams = new URLSearchParams(window.location.search);
   const state = {
-    page: Math.max(1, Number.parseInt(initialParams.get("page"), 10) || 1),
+    batch: Math.max(1, Number.parseInt(initialParams.get("batch") || initialParams.get("page"), 10) || 1),
     query: "",
     category: "all"
   };
@@ -45,6 +54,13 @@
     return images.filter((image) => typeof image === "string" && image.trim());
   }
 
+  function getImagePosition(item, index) {
+    const configured = Array.isArray(item.imagePosition)
+      ? item.imagePosition[index]
+      : item.imagePosition;
+    return ["top", "center", "bottom"].includes(configured) ? configured : "center";
+  }
+
   function safeExternalUrl(value) {
     if (!value) return "";
 
@@ -62,7 +78,7 @@
 
     return images.map((image, index) => `
       <img
-        class="archive-slideshow__image${index === 0 ? " is-active is-revealing" : ""}"
+        class="archive-slideshow__image${index === 0 ? " is-active is-revealing" : ""}${detail ? ` image-position--${getImagePosition(item, index)}` : ""}"
         src="${escapeHtml(image)}"
         alt="${index === 0 ? escapeHtml(alt) : ""}"
         ${index === 0 ? "" : 'aria-hidden="true"'}
@@ -145,6 +161,8 @@
   }
 
   function initializeCategories() {
+    if (!filterSelect) return;
+
     const categories = new Map();
     archive.forEach((item) => categories.set(item.category, item.categoryLabel));
 
@@ -202,50 +220,13 @@
     `;
   }
 
-  function paginationModel(currentPage, totalPages) {
-    if (totalPages <= 7) {
-      return Array.from({ length: totalPages }, (_, index) => index + 1);
-    }
-
-    const pages = new Set([1, totalPages, currentPage - 1, currentPage, currentPage + 1]);
-    const sorted = [...pages].filter((page) => page > 0 && page <= totalPages).sort((a, b) => a - b);
-    const model = [];
-
-    sorted.forEach((page, index) => {
-      if (index && page - sorted[index - 1] > 1) model.push("ellipsis");
-      model.push(page);
-    });
-
-    return model;
-  }
-
-  function renderPagination(totalPages) {
-    const pageItems = paginationModel(state.page, totalPages);
-    const pageButtons = pageItems.map((page) => {
-      if (page === "ellipsis") return '<span class="pagination__ellipsis" aria-hidden="true">···</span>';
-      const current = page === state.page;
-      return `<button type="button" data-page="${page}" ${current ? 'class="is-current" aria-current="page"' : ""}>${pad(page)}</button>`;
-    }).join("");
-
-    pagination.innerHTML = `
-      <button class="pagination__arrow" type="button" data-page="${state.page - 1}" ${state.page === 1 ? "disabled" : ""} aria-label="前のページ">←</button>
-      <div class="pagination__pages">${pageButtons}</div>
-      <span class="pagination__status">PAGE ${pad(state.page)} / ${pad(totalPages)}</span>
-      <button class="pagination__arrow" type="button" data-page="${state.page + 1}" ${state.page === totalPages ? "disabled" : ""} aria-label="次のページ">→</button>
-    `;
-
-    paginationTop.innerHTML = `
-      <button class="pagination__arrow" type="button" data-page="${state.page - 1}" ${state.page === 1 ? "disabled" : ""} aria-label="前のページ">←</button>
-      <span class="pagination__status">PAGE ${pad(state.page)} / ${pad(totalPages)}</span>
-      <button class="pagination__arrow" type="button" data-page="${state.page + 1}" ${state.page === totalPages ? "disabled" : ""} aria-label="次のページ">→</button>
-    `;
-  }
-
   function updateUrl(recordId) {
     try {
       const url = new URL(window.location.href);
-      if (state.page > 1) url.searchParams.set("page", state.page);
-      else url.searchParams.delete("page");
+      url.searchParams.delete("page");
+
+      if (!isPreview && state.batch > 1) url.searchParams.set("batch", state.batch);
+      else url.searchParams.delete("batch");
 
       if (recordId) url.searchParams.set("record", recordId);
       else url.searchParams.delete("record");
@@ -256,25 +237,108 @@
     }
   }
 
-  function renderArchive({ scroll = false } = {}) {
+  function renderArchive({ append = false, reset = false } = {}) {
     const filtered = getFilteredArchive();
-    const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
-    state.page = Math.min(Math.max(1, state.page), totalPages);
+    const totalBatches = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
 
-    const start = (state.page - 1) * itemsPerPage;
-    const currentItems = filtered.slice(start, start + itemsPerPage);
+    if (reset) state.batch = 1;
+    state.batch = Math.min(Math.max(1, state.batch), totalBatches);
 
-    stopSlideshows(grid);
-    grid.innerHTML = currentItems.map(createCard).join("");
+    const visibleLimit = isPreview ? previewCount : state.batch * itemsPerPage;
+    const currentItems = filtered.slice(0, visibleLimit);
+    const renderedCount = append ? grid.children.length : 0;
+    const newItems = currentItems.slice(renderedCount);
+
+    if (append) {
+      grid.insertAdjacentHTML("beforeend", newItems.map((item, index) => createCard(item, renderedCount + index)).join(""));
+    } else {
+      stopSlideshows(grid);
+      grid.innerHTML = currentItems.map(createCard).join("");
+    }
+
     startSlideshows(grid);
     grid.hidden = currentItems.length === 0;
     emptyState.hidden = currentItems.length !== 0;
-    resultCount.textContent = pad(filtered.length);
-    renderPagination(totalPages);
-    updateUrl();
 
-    if (scroll) {
-      document.getElementById("archive").scrollIntoView({ behavior: "smooth", block: "start" });
+    filteredCountElements.forEach((element) => {
+      element.textContent = pad(filtered.length);
+    });
+    loadedCountElements.forEach((element) => {
+      element.textContent = pad(currentItems.length);
+    });
+
+    const hasMore = !isPreview && currentItems.length < filtered.length;
+    if (archiveLoad) archiveLoad.hidden = filtered.length === 0;
+    if (loadMoreButton) loadMoreButton.hidden = !hasMore;
+    if (archiveSentinel) archiveSentinel.hidden = !hasMore;
+    if (archiveEnd) archiveEnd.hidden = filtered.length === 0 || hasMore;
+
+    updateUrl();
+  }
+
+  function loadNextBatch() {
+    if (isPreview) return;
+
+    const filtered = getFilteredArchive();
+    if (state.batch * itemsPerPage >= filtered.length) return;
+
+    state.batch += 1;
+    renderArchive({ append: true });
+  }
+
+  function updateProtocolUrl(isOpen) {
+    try {
+      const url = new URL(window.location.href);
+      if (isOpen) {
+        url.searchParams.set("protocol", "open");
+        if (url.hash === "#protocol") url.hash = "";
+      } else {
+        url.searchParams.delete("protocol");
+      }
+      window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+    } catch (_) {
+      // file:// など履歴APIを利用できない環境でも表示は継続する。
+    }
+  }
+
+  function resetProtocolScroll() {
+    if (!protocolModal) return;
+    protocolModal.scrollTop = 0;
+    const protocolContent = protocolModal.querySelector(".protocol-section");
+    if (protocolContent) protocolContent.scrollTop = 0;
+  }
+
+  function openProtocol() {
+    if (!protocolModal) return;
+    if (protocolModal.open) return;
+    if (modal.open) closeRecord();
+
+    document.body.classList.add("modal-open");
+    if (typeof protocolModal.showModal === "function") protocolModal.showModal();
+    else protocolModal.setAttribute("open", "");
+
+    resetProtocolScroll();
+    window.requestAnimationFrame(resetProtocolScroll);
+    updateProtocolUrl(true);
+  }
+
+  function closeProtocol() {
+    if (!protocolModal) return;
+    if (protocolModal.open && typeof protocolModal.close === "function") protocolModal.close();
+    else protocolModal.removeAttribute("open");
+
+    document.body.classList.remove("modal-open");
+    updateProtocolUrl(false);
+  }
+
+  function resetRecordScroll() {
+    modal.scrollTop = 0;
+    modalContent.scrollTop = 0;
+
+    const recordDetail = modalContent.querySelector(".record-detail");
+    if (recordDetail) {
+      recordDetail.scrollTop = 0;
+      recordDetail.scrollLeft = 0;
     }
   }
 
@@ -326,6 +390,9 @@
 
     if (typeof modal.showModal === "function") modal.showModal();
     else modal.setAttribute("open", "");
+
+    resetRecordScroll();
+    window.requestAnimationFrame(resetRecordScroll);
   }
 
   function closeRecord() {
@@ -337,16 +404,14 @@
     updateUrl();
   }
 
-  searchInput.addEventListener("input", (event) => {
+  searchInput?.addEventListener("input", (event) => {
     state.query = event.target.value;
-    state.page = 1;
-    renderArchive();
+    renderArchive({ reset: true });
   });
 
-  filterSelect.addEventListener("change", (event) => {
+  filterSelect?.addEventListener("change", (event) => {
     state.category = event.target.value;
-    state.page = 1;
-    renderArchive();
+    renderArchive({ reset: true });
   });
 
   grid.addEventListener("click", (event) => {
@@ -356,15 +421,19 @@
     if (item) openRecord(item);
   });
 
-  function handlePaginationClick(event) {
-    const trigger = event.target.closest("[data-page]");
-    if (!trigger || trigger.disabled) return;
-    state.page = Number(trigger.dataset.page);
-    renderArchive({ scroll: event.currentTarget === pagination });
-  }
+  loadMoreButton?.addEventListener("click", loadNextBatch);
 
-  pagination.addEventListener("click", handlePaginationClick);
-  paginationTop.addEventListener("click", handlePaginationClick);
+  protocolOpenButtons.forEach((button) => {
+    button.addEventListener("click", openProtocol);
+  });
+  protocolClose?.addEventListener("click", closeProtocol);
+  protocolModal?.addEventListener("click", (event) => {
+    if (event.target === protocolModal) closeProtocol();
+  });
+  protocolModal?.addEventListener("close", () => {
+    document.body.classList.remove("modal-open");
+    updateProtocolUrl(false);
+  });
 
   modalClose.addEventListener("click", closeRecord);
   modal.addEventListener("click", (event) => {
@@ -383,8 +452,18 @@
   initializeCategories();
   renderArchive();
 
+  if (!isPreview && archiveSentinel && "IntersectionObserver" in window) {
+    const loadObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) loadNextBatch();
+    }, { rootMargin: "320px 0px" });
+
+    loadObserver.observe(archiveSentinel);
+  }
+
   const requestedRecord = initialParams.get("record");
-  if (requestedRecord) {
+  if (initialParams.get("protocol") === "open" || window.location.hash === "#protocol") {
+    openProtocol();
+  } else if (requestedRecord) {
     const item = archive.find((record) => record.id === requestedRecord);
     if (item) openRecord(item);
   }

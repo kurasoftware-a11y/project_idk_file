@@ -4,8 +4,10 @@
  * 画像配置： assets/archive/
  * 新規追加時、下の配列へ同じ形式のオブジェクトを追加する。
  * image は文字列または配列で指定可能。複数指定した場合は自動で切り替わる。
+ * imagePosition は詳細画像の縦位置。"top" / "center" / "bottom" から指定し、省略時は "center"。
+ * 画像ごとに変える場合は、image と同じ順番の配列で指定できる。
  * summaryEn / descriptionEn / instagram は任意。値がある項目だけ表示される。
- * 一覧・検索・分類フィルター・ページ番号・詳細画面は自動更新。
+ * 一覧・検索・分類フィルター・無限読み込み・詳細画面は自動更新。
  */
 window.IDK_ARCHIVE_SETTINGS = {
   itemsPerPage: 6,
@@ -26,6 +28,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/001_1.png",
       "assets/archive/001_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Tono, Iwate, JP",
     recorded: "2001.06.18",
@@ -48,6 +51,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/002_1.png",
       "assets/archive/002_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Tokyo, JP",
     recorded: "2004.09.03",
@@ -70,6 +74,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/003_1.png",
       "assets/archive/003_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Monterey Canyon, California, US",
     recorded: "2007.11.03",
@@ -92,6 +97,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/004_1.png",
       "assets/archive/004_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Cordillera Real, La Paz, BO",
     recorded: "2017.02.11",
@@ -114,6 +120,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/005_1.png",
       "assets/archive/005_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Ben Macdui, Cairngorms, Scotland, UK",
     recorded: "2019.10.14",
@@ -136,6 +143,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/006_1.png",
       "assets/archive/006_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Lake Tota, Boyacá, CO",
     recorded: "2017.11.03",
@@ -158,6 +166,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/007_1.png",
       "assets/archive/007_2.png"
     ],
+    imagePosition: "center",
     instagram: "",
     location: "Amazonas, Brazil",
     recorded: "2008.11.07",
