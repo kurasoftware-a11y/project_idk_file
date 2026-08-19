@@ -143,7 +143,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/006_1.png",
       "assets/archive/006_2.png"
     ],
-    imagePosition: "center",
+    imagePosition: "bottom",
     instagram: "",
     location: "Lake Tota, Boyacá, CO",
     recorded: "2017.11.03",

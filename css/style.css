@@ -1115,7 +1115,7 @@ img {
 }
 
 .detail-modal {
-  width: min(74rem, calc(100% - 2rem));
+  width: min(86rem, calc(100% - 2rem));
   max-width: none;
   max-height: calc(100dvh - 2rem);
   padding: 0;
@@ -1176,7 +1176,7 @@ img {
 .record-detail {
   max-height: calc(100dvh - 2rem);
   display: grid;
-  grid-template-columns: minmax(18rem, 0.8fr) minmax(25rem, 1.2fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow: auto;
 }
 
@@ -1186,6 +1186,16 @@ img {
   overflow: hidden;
   border-right: 1px solid var(--line);
   background: var(--ink);
+}
+
+@media (min-width: 961px) {
+  .record-detail__visual {
+    position: sticky;
+    top: 0;
+    height: calc(100dvh - 2rem);
+    min-height: 0;
+    align-self: start;
+  }
 }
 
 .record-detail__visual::after {
