@@ -269,7 +269,10 @@
 
     const hasMore = !isPreview && currentItems.length < filtered.length;
     if (archiveLoad) archiveLoad.hidden = filtered.length === 0;
-    if (loadMoreButton) loadMoreButton.hidden = !hasMore;
+    if (loadMoreButton) {
+      loadMoreButton.disabled = !hasMore;
+      loadMoreButton.setAttribute("aria-disabled", String(!hasMore));
+    }
     if (archiveSentinel) archiveSentinel.hidden = !hasMore;
     if (archiveEnd) archiveEnd.hidden = filtered.length === 0 || hasMore;
 

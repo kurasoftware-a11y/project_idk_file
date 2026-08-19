@@ -373,6 +373,16 @@ img {
   color: var(--ink);
 }
 
+.button:disabled,
+.button:disabled:hover,
+.button:disabled:focus-visible {
+  border-color: var(--line-bright);
+  background: transparent;
+  color: var(--text-soft);
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
 .hero__telemetry {
   position: absolute;
   right: var(--page-pad);
