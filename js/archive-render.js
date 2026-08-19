@@ -58,7 +58,8 @@
     const configured = Array.isArray(item.imagePosition)
       ? item.imagePosition[index]
       : item.imagePosition;
-    return ["top", "center", "bottom"].includes(configured) ? configured : "center";
+    const normalized = String(configured ?? "center").trim().toLowerCase();
+    return ["top", "center", "bottom"].includes(normalized) ? normalized : "center";
   }
 
   function safeExternalUrl(value) {
@@ -76,16 +77,22 @@
     const images = firstOnly ? getImages(item).slice(0, 1) : getImages(item);
     const alt = detail ? `${item.nameJa}の拡大画像` : item.nameJa;
 
-    return images.map((image, index) => `
+    return images.map((image, index) => {
+      const imagePosition = detail ? getImagePosition(item, index) : "center";
+      const imagePositionPercent = { top: "0%", center: "50%", bottom: "100%" }[imagePosition];
+
+      return `
       <img
-        class="archive-slideshow__image${index === 0 ? " is-active is-revealing" : ""}${detail ? ` image-position--${getImagePosition(item, index)}` : ""}"
+        class="archive-slideshow__image${index === 0 ? " is-active is-revealing" : ""}"
         src="${escapeHtml(image)}"
         alt="${index === 0 ? escapeHtml(alt) : ""}"
         ${index === 0 ? "" : 'aria-hidden="true"'}
         ${detail ? "" : 'loading="lazy"'}
+        ${detail ? `data-image-position="${imagePosition}" style="object-position: 50% ${imagePositionPercent}"` : ""}
         decoding="async"
       >
-    `).join("");
+    `;
+    }).join("");
   }
 
   function createImageCounter(item) {

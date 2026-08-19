@@ -4,8 +4,8 @@
  * 画像配置： assets/archive/
  * 新規追加時、下の配列へ同じ形式のオブジェクトを追加する。
  * image は文字列または配列で指定可能。複数指定した場合は自動で切り替わる。
- * imagePosition は詳細画像の縦位置。"top" / "center" / "bottom" から指定し、省略時は "center"。
- * 画像ごとに変える場合は、image と同じ順番の配列で指定できる。
+ * imagePosition は詳細画像の縦位置。"top" = 上端、"center" = 中央、"bottom" = 下端。省略時は "center"。
+ * 画像ごとに変える場合は、image と同じ順番で imagePosition: ["top", "bottom"] のように指定できる。
  * summaryEn / descriptionEn / instagram は任意。値がある項目だけ表示される。
  * 一覧・検索・分類フィルター・無限読み込み・詳細画面は自動更新。
  */
@@ -19,8 +19,8 @@ window.IDK_ARCHIVE = [
     id: "001",
     name: "Kappa",
     nameJa: "河童",
-    category: "amphibious",
-    categoryLabel: "Amphibious",
+    category: "aquatic",
+    categoryLabel: "水生-Aquatic",
     risk: "gamma",
     riskLabel: "Gamma risk",
     status: "Observed",
@@ -42,8 +42,8 @@ window.IDK_ARCHIVE = [
     id: "002",
     name: "Noppera-bo",
     nameJa: "のっぺらぼう",
-    category: "humanoid",
-    categoryLabel: "Humanoid",
+    category: "terrestrial",
+    categoryLabel: "陸生-Terrestrial",
     risk: "beta",
     riskLabel: "Beta risk",
     status: "Observed",
@@ -65,8 +65,8 @@ window.IDK_ARCHIVE = [
     id: "003",
     name: "Abyssal Strix",
     nameJa: "アビサル・ストリクス",
-    category: "abyssal",
-    categoryLabel: "Abyssal",
+    category: "aquatic",
+    categoryLabel: "水生-Aquatic",
     risk: "gamma",
     riskLabel: "Gamma risk",
     status: "Observed",
@@ -89,7 +89,7 @@ window.IDK_ARCHIVE = [
     name: "Rain Feeder",
     nameJa: "雨喰い",
     category: "terrestrial",
-    categoryLabel: "Terrestrial",
+    categoryLabel: "陸生-Terrestrial",
     risk: "beta",
     riskLabel: "Beta risk",
     status: "Observed",
@@ -111,8 +111,8 @@ window.IDK_ARCHIVE = [
     id: "005",
     name: "Longstep",
     nameJa: "長歩個体",
-    category: "alpine",
-    categoryLabel: "Alpine",
+    category: "terrestrial",
+    categoryLabel: "陸生-Terrestrial",
     risk: "beta",
     riskLabel: "Beta risk",
     status: "Observed",
@@ -134,8 +134,8 @@ window.IDK_ARCHIVE = [
     id: "006",
     name: "Tota Crownback",
     nameJa: "トタ冠背個体",
-    category: "lacustrine",
-    categoryLabel: "Lacustrine",
+    category: "aquatic",
+    categoryLabel: "水生-Aquatic",
     risk: "beta",
     riskLabel: "Beta risk",
     status: "Observed",
@@ -158,7 +158,7 @@ window.IDK_ARCHIVE = [
     name: "Red False-Maw",
     nameJa: "赤腹偽口個体",
     category: "terrestrial",
-    categoryLabel: "Terrestrial",
+    categoryLabel: "陸生-Terrestrial",
     risk: "beta",
     riskLabel: "Beta risk",
     status: "Observed",
