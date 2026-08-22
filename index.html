@@ -9,9 +9,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=20260820-4">
-    <script src="js/archive-data.js?v=20260820" defer></script>
-    <script src="js/archive-render.js?v=20260820" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20260822">
+    <script src="js/archive-data.js?v=20260822" defer></script>
+    <script src="js/archive-render.js?v=20260822" defer></script>
   </head>
   <body class="archive-home">
     <a class="skip-link" href="#archive">記録一覧へ移動</a>
@@ -24,8 +24,8 @@
       </a>
 
       <nav class="site-nav" aria-label="メインナビゲーション">
+        <button type="button" data-about-open aria-haspopup="dialog" aria-controls="about-modal" aria-expanded="false">About</button>
         <a href="#archive" aria-current="page">Archive</a>
-        <button type="button" data-protocol-open>Protocol</button>
         <a href="contact.html">Contact</a>
       </nav>
 
@@ -53,7 +53,7 @@
           </p>
           <div class="hero__actions">
             <a class="button button--primary" href="#archive">Access archive <span aria-hidden="true">↘</span></a>
-            <button class="button button--ghost" type="button" data-protocol-open>Read protocol</button>
+            <button class="button button--ghost" type="button" data-about-open aria-haspopup="dialog" aria-controls="about-modal" aria-expanded="false">About the archive</button>
           </div>
         </div>
 
@@ -72,7 +72,7 @@
           </div>
         </dl>
 
-        <p class="hero__scroll" aria-hidden="true">Scroll to inspect</p>
+        <a class="hero__scroll" href="#archive">Scroll to inspect <span aria-hidden="true">↓</span></a>
       </section>
 
       <section class="archive-section" id="archive" aria-labelledby="archive-title">
@@ -132,71 +132,60 @@
         <p>Independent unidentified lifeform archive.</p>
         <p class="site-footer__copyright">&copy; <time datetime="2026">2026</time> IDK FILE. All rights reserved.</p>
       </div>
-      <button class="site-footer__protocol" type="button" data-protocol-open>Archive protocol</button>
+      <button class="site-footer__action" type="button" data-about-open aria-haspopup="dialog" aria-controls="about-modal" aria-expanded="false">About archive</button>
     </footer>
 
-    <dialog class="protocol-modal" id="protocol-modal" aria-labelledby="protocol-modal-title">
-      <button class="detail-modal__close" type="button" data-protocol-close aria-label="Protocolを閉じる">
+    <dialog class="about-modal" id="about-modal" aria-labelledby="about-modal-title">
+      <button class="detail-modal__close" type="button" data-about-close aria-label="ABOUTを閉じる">
         <span aria-hidden="true"></span>
       </button>
-      <section class="protocol-section protocol-section--modal">
-        <div class="protocol-section__intro">
-          <p class="eyebrow"><span>Archive protocol</span> / Handling rules</p>
-          <h2 id="protocol-modal-title">Do not assume<br>we understand.</h2>
+      <section class="about-section">
+        <div class="about-section__intro">
+          <p class="eyebrow"><span>About</span> / Archive statement</p>
+          <h2 id="about-modal-title">We record what<br>does not fit.</h2>
+          <p class="about-section__file">FILE 000 / DISCLOSURE STATEMENT</p>
         </div>
 
-        <ol class="protocol-list">
-          <li>
-            <span class="protocol-list__number">00</span>
-            <div>
-              <h3>Note</h3>
-              <p>
-                本アーカイブは、伝承・未確認情報・思弁的生物学から着想を得たフィクション・ドキュメンテーションです。
-                <br />This archive is a fictional documentation project inspired by folklore, anomalous reports, and speculative biology.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <span class="protocol-list__number">01</span>
-            <div>
-              <h3>Observe</h3>
-              <p>
-                形態、環境、行動を観測事実と推定に分けて記録する。既知の分類体系への早急な帰属は避ける。
-                <br />Record morphology, environment, and behavior while clearly separating observed facts from inference. Avoid premature assignment to established classification systems.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <span class="protocol-list__number">02</span>
-            <div>
-              <h3>Classify</h3>
-              <p>
-                視覚情報、行動特性、各種検出反応をもとに暫定分類を行う。分類結果は追加記録に応じて随時改訂される。
-                <br />Assign provisional classifications based on visual evidence, behavioral traits, and detected responses. Classifications are revised as additional records become available.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <span class="protocol-list__number">03</span>
-            <div>
-              <h3>Contain</h3>
-              <p>
-                接触および介入より継続観測を優先する。危険性が確定していない対象については、必要な距離と隔離状態を維持する。
-                <br />Prioritize continued observation over contact or intervention. Maintain appropriate distance and isolation for subjects whose level of risk remains undetermined.
-              </p>
-            </div>
-          </li>
-        </ol>
+        <div class="about-section__body">
+          <div class="about-section__entry">
+            <p lang="ja">「IDKファイル」は、未確認生命体に関する観測記録を収蔵したデータアーカイブである。</p>
+            <p class="about-section__english" lang="en"><span>EN</span>“IDK FILE” is a data archive containing observational records of unidentified life forms.</p>
+          </div>
+          <div class="about-section__entry">
+            <p lang="ja">世界各地で発生する不可解な事件や怪現象。その現場には、ときに既知の生物学では説明できない、「辻褄の合わない生物的痕跡」が残されている。</p>
+            <p class="about-section__english" lang="en"><span>EN</span>Across the world, inexplicable incidents and anomalous phenomena leave behind what can only be described as “biological traces that do not add up”—evidence that cannot be explained by known biology.</p>
+          </div>
+          <div class="about-section__entry">
+            <p lang="ja">宇宙の深淵から飛来した異形の生命体から、都市伝説の奥に潜む怪異まで。本アーカイブは、人類の常識の外側に存在するものを記録する。</p>
+            <p class="about-section__english" lang="en"><span>EN</span>From aberrant life forms that arrived from the depths of space to anomalies concealed within urban legends, this archive documents entities that exist beyond the limits of accepted human knowledge.</p>
+          </div>
+          <div class="about-section__entry">
+            <p lang="ja">これらの記録を公開する目的は、未知を安易に断定することではない。観測された事実を再検証し、人類の知見をさらに拡張するためである。</p>
+            <p class="about-section__english" lang="en"><span>EN</span>The purpose of disclosing these records is not to force conclusions upon the unknown. It is to re-examine what has been observed and expand the boundaries of human knowledge.</p>
+          </div>
+          <div class="about-section__entry">
+            <p lang="ja">ここに収められているのは、既存の常識を静かに崩壊させる観測記録。ミステリアスで、恐ろしく、そしてどこか美しい真実の断片である。</p>
+            <p class="about-section__english" lang="en"><span>EN</span>Contained here are observational records that quietly dismantle accepted reality—fragments of truth that are mysterious, terrifying, and somehow beautiful.</p>
+          </div>
+          <div class="about-section__entry">
+            <p lang="ja">我々の知り得ない存在を追うことは、地球上の知的生命体である人間そのものの謎を追うことでもある。その先には、宇宙という巨大な未知を解き明かす手がかりがあるかもしれない。</p>
+            <p class="about-section__english" lang="en"><span>EN</span>To pursue beings beyond our knowledge is also to pursue the mystery of humanity itself, an intelligent life form born on Earth. Beyond that pursuit may lie clues to deciphering the vast unknown we call the universe.</p>
+          </div>
+          <aside class="about-section__disclaimer" aria-label="フィクション作品について">
+            <p lang="ja">本アーカイブは、伝承・未確認情報・思弁的生物学から着想を得たフィクション・ドキュメンテーションです。</p>
+            <p lang="en">This archive is a fictional documentation project inspired by folklore, anomalous reports, and speculative biology.</p>
+          </aside>
+        </div>
       </section>
     </dialog>
 
     <dialog class="detail-modal" id="archive-modal" aria-labelledby="modal-title">
-      <button class="detail-modal__close" type="button" data-modal-close aria-label="詳細を閉じる">
-        <span aria-hidden="true"></span>
-      </button>
+      <div class="detail-modal__toolbar">
+        <span class="detail-modal__toolbar-label" aria-hidden="true">Record detail</span>
+        <button class="detail-modal__close" type="button" data-modal-close aria-label="詳細を閉じる">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
       <div id="modal-content"></div>
     </dialog>
   </body>

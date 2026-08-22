@@ -6,6 +6,7 @@
  * image は文字列または配列で指定可能。複数指定した場合は自動で切り替わる。
  * imagePosition は詳細画像の縦位置。"top" = 上端、"center" = 中央、"bottom" = 下端。省略時は "center"。
  * 画像ごとに変える場合は、image と同じ順番で imagePosition: ["top", "bottom"] のように指定できる。
+ * thumbnailPosition で一覧画像の縦位置を上書きできる。省略時は imagePosition と同じ位置を使用する。
  * summaryEn / descriptionEn / instagram は任意。値がある項目だけ表示される。
  * 一覧・検索・分類フィルター・無限読み込み・詳細画面は自動更新。
  */

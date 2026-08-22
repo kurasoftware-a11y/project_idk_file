@@ -9,8 +9,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=20260820-4">
-    <script src="js/contact.js?v=20260820" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20260822">
+    <script src="js/contact.js?v=20260822" defer></script>
   </head>
   <body class="contact-page">
     <a class="skip-link" href="#contact-form">お問い合わせフォームへ移動</a>
@@ -23,8 +23,8 @@
       </a>
 
       <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="index.html?about=open">About</a>
         <a href="index.html#archive">Archive</a>
-        <a href="index.html?protocol=open">Protocol</a>
         <a href="contact.html" aria-current="page">Contact</a>
       </nav>
 
@@ -59,7 +59,12 @@
           </dl>
         </div>
 
-        <form class="contact-form" id="contact-form">
+        <form
+          class="contact-form"
+          id="contact-form"
+          action="https://formspree.io/f/xppandvz"
+          method="post"
+        >
           <div class="contact-field">
             <label for="inquiry-type">Inquiry type <span>Required</span></label>
             <select id="inquiry-type" name="inquiryType" required>
@@ -92,7 +97,7 @@
 
           <div class="contact-form__actions">
             <button class="button button--primary" type="submit">Transmit inquiry <span aria-hidden="true">↗</span></button>
-            <p class="contact-form__status" id="contact-status" aria-live="polite"></p>
+            <p class="contact-form__status" id="contact-status" aria-live="polite" aria-atomic="true"></p>
           </div>
         </form>
       </section>
@@ -107,7 +112,7 @@
         <p>Independent unidentified lifeform archive.</p>
         <p class="site-footer__copyright">&copy; <time datetime="2026">2026</time> IDK FILE. All rights reserved.</p>
       </div>
-      <a class="site-footer__protocol" href="index.html#archive">Return to archive</a>
+      <a class="site-footer__action" href="index.html#archive">Return to archive</a>
     </footer>
   </body>
 </html>

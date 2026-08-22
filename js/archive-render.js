@@ -27,9 +27,9 @@
   const modal = document.getElementById("archive-modal");
   const modalContent = document.getElementById("modal-content");
   const modalClose = modal.querySelector("[data-modal-close]");
-  const protocolModal = document.getElementById("protocol-modal");
-  const protocolOpenButtons = document.querySelectorAll("[data-protocol-open]");
-  const protocolClose = protocolModal?.querySelector("[data-protocol-close]");
+  const aboutModal = document.getElementById("about-modal");
+  const aboutOpenButtons = document.querySelectorAll("[data-about-open]");
+  const aboutClose = aboutModal?.querySelector("[data-about-close]");
 
   const initialParams = new URLSearchParams(window.location.search);
   const state = {
@@ -37,6 +37,13 @@
     query: "",
     category: "all"
   };
+
+  function syncModalBodyState() {
+    const dialogIsOpen = [modal, aboutModal].some((dialog) =>
+      dialog && (dialog.open || dialog.hasAttribute("open"))
+    );
+    document.body.classList.toggle("modal-open", dialogIsOpen);
+  }
 
   const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({
     "&": "&amp;",
@@ -62,6 +69,16 @@
     return ["top", "center", "bottom"].includes(normalized) ? normalized : "center";
   }
 
+  function getThumbnailPosition(item, index) {
+    const configured = Array.isArray(item.thumbnailPosition)
+      ? item.thumbnailPosition[index]
+      : item.thumbnailPosition;
+    if (configured == null) return getImagePosition(item, index);
+
+    const normalized = String(configured).trim().toLowerCase();
+    return ["top", "center", "bottom"].includes(normalized) ? normalized : getImagePosition(item, index);
+  }
+
   function safeExternalUrl(value) {
     if (!value) return "";
 
@@ -78,7 +95,7 @@
     const alt = detail ? `${item.nameJa}の拡大画像` : item.nameJa;
 
     return images.map((image, index) => {
-      const imagePosition = detail ? getImagePosition(item, index) : "center";
+      const imagePosition = detail ? getImagePosition(item, index) : getThumbnailPosition(item, index);
       const imagePositionPercent = { top: "0%", center: "50%", bottom: "100%" }[imagePosition];
 
       return `
@@ -88,17 +105,31 @@
         alt="${index === 0 ? escapeHtml(alt) : ""}"
         ${index === 0 ? "" : 'aria-hidden="true"'}
         ${detail ? "" : 'loading="lazy"'}
-        ${detail ? `data-image-position="${imagePosition}" style="object-position: 50% ${imagePositionPercent}"` : ""}
+        data-image-position="${imagePosition}"
+        style="object-position: 50% ${imagePositionPercent}"
         decoding="async"
       >
     `;
     }).join("");
   }
 
-  function createImageCounter(item) {
+  function createImageIndicators(item) {
     const imageCount = getImages(item).length;
     if (imageCount < 2) return "";
-    return `<span class="archive-slideshow__counter" aria-hidden="true"><span data-slide-current>01</span> / ${pad(imageCount)}</span>`;
+
+    return `
+      <div class="archive-slideshow__indicators" role="group" aria-label="表示画像を選択">
+        ${Array.from({ length: imageCount }, (_, index) => `
+          <button
+            class="archive-slideshow__indicator${index === 0 ? " is-active" : ""}"
+            type="button"
+            data-slide-index="${index}"
+            aria-label="画像 ${index + 1} / ${imageCount} を表示"
+            aria-current="${index === 0}"
+          ><span aria-hidden="true"></span></button>
+        `).join("")}
+      </div>
+    `;
   }
 
   function restartScan(slideshow) {
@@ -109,14 +140,20 @@
     scan.classList.add("is-playing");
   }
 
-  function advanceSlideshow(slideshow) {
-    if (document.hidden) return;
-
+  function showSlide(slideshow, nextIndex) {
     const images = [...slideshow.querySelectorAll(".archive-slideshow__image")];
     if (images.length < 2) return;
 
     const currentIndex = images.findIndex((image) => image.classList.contains("is-active"));
-    const nextIndex = (Math.max(0, currentIndex) + 1) % images.length;
+    if (!Number.isInteger(nextIndex) || nextIndex < 0 || nextIndex >= images.length) return;
+
+    slideshow.querySelectorAll("[data-slide-index]").forEach((indicator) => {
+      const active = Number.parseInt(indicator.dataset.slideIndex, 10) === nextIndex;
+      indicator.classList.toggle("is-active", active);
+      indicator.setAttribute("aria-current", String(active));
+    });
+
+    if (currentIndex === nextIndex) return;
 
     images.forEach((image, index) => {
       const active = index === nextIndex;
@@ -127,18 +164,34 @@
     });
 
     images[nextIndex].classList.add("is-revealing");
-    const counter = slideshow.querySelector("[data-slide-current]");
-    if (counter) counter.textContent = pad(nextIndex + 1);
     restartScan(slideshow);
   }
 
-  function startSlideshows(container) {
-    if (prefersReducedMotion) return;
+  function advanceSlideshow(slideshow) {
+    if (document.hidden) return;
 
+    const images = [...slideshow.querySelectorAll(".archive-slideshow__image")];
+    if (images.length < 2) return;
+
+    const currentIndex = images.findIndex((image) => image.classList.contains("is-active"));
+    showSlide(slideshow, (Math.max(0, currentIndex) + 1) % images.length);
+  }
+
+  function resetSlideshowTimer(slideshow) {
+    const currentTimer = slideshowTimers.get(slideshow);
+    if (currentTimer) window.clearInterval(currentTimer);
+    slideshowTimers.delete(slideshow);
+
+    if (prefersReducedMotion) return;
+    if (slideshow.querySelectorAll(".archive-slideshow__image").length < 2) return;
+
+    const timer = window.setInterval(() => advanceSlideshow(slideshow), imageInterval);
+    slideshowTimers.set(slideshow, timer);
+  }
+
+  function startSlideshows(container) {
     container.querySelectorAll("[data-slideshow]").forEach((slideshow) => {
-      if (slideshow.querySelectorAll(".archive-slideshow__image").length < 2) return;
-      const timer = window.setInterval(() => advanceSlideshow(slideshow), imageInterval);
-      slideshowTimers.set(slideshow, timer);
+      resetSlideshowTimer(slideshow);
     });
   }
 
@@ -214,7 +267,7 @@
             <span class="archive-card__reticle" aria-hidden="true"></span>
             <span class="archive-card__number">FILE ${escapeHtml(item.id)}</span>
             <span class="archive-card__risk archive-card__risk--${escapeHtml(item.risk)}">${escapeHtml(item.riskLabel)}</span>
-            <span class="archive-card__inspect">Inspect file <span aria-hidden="true">↗</span></span>
+            <span class="archive-card__inspect">OPEN <span aria-hidden="true">↗</span></span>
           </span>
           <span class="archive-card__body">
             <span class="archive-card__taxonomy">${escapeHtml(item.categoryLabel)} / ${escapeHtml(item.status)}</span>
@@ -296,49 +349,46 @@
     renderArchive({ append: true });
   }
 
-  function updateProtocolUrl(isOpen) {
+  function updateAboutUrl(isOpen) {
     try {
       const url = new URL(window.location.href);
-      if (isOpen) {
-        url.searchParams.set("protocol", "open");
-        if (url.hash === "#protocol") url.hash = "";
-      } else {
-        url.searchParams.delete("protocol");
-      }
+      if (isOpen) url.searchParams.set("about", "open");
+      else url.searchParams.delete("about");
       window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
     } catch (_) {
       // file:// など履歴APIを利用できない環境でも表示は継続する。
     }
   }
 
-  function resetProtocolScroll() {
-    if (!protocolModal) return;
-    protocolModal.scrollTop = 0;
-    const protocolContent = protocolModal.querySelector(".protocol-section");
-    if (protocolContent) protocolContent.scrollTop = 0;
+  function resetAboutScroll() {
+    if (!aboutModal) return;
+    aboutModal.scrollTop = 0;
+    const aboutContent = aboutModal.querySelector(".about-section");
+    if (aboutContent) aboutContent.scrollTop = 0;
   }
 
-  function openProtocol() {
-    if (!protocolModal) return;
-    if (protocolModal.open) return;
+  function openAbout() {
+    if (!aboutModal || aboutModal.open) return;
     if (modal.open) closeRecord();
 
-    document.body.classList.add("modal-open");
-    if (typeof protocolModal.showModal === "function") protocolModal.showModal();
-    else protocolModal.setAttribute("open", "");
+    if (typeof aboutModal.showModal === "function") aboutModal.showModal();
+    else aboutModal.setAttribute("open", "");
 
-    resetProtocolScroll();
-    window.requestAnimationFrame(resetProtocolScroll);
-    updateProtocolUrl(true);
+    aboutOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
+    syncModalBodyState();
+    resetAboutScroll();
+    window.requestAnimationFrame(resetAboutScroll);
+    updateAboutUrl(true);
   }
 
-  function closeProtocol() {
-    if (!protocolModal) return;
-    if (protocolModal.open && typeof protocolModal.close === "function") protocolModal.close();
-    else protocolModal.removeAttribute("open");
+  function closeAbout() {
+    if (!aboutModal) return;
+    if (aboutModal.open && typeof aboutModal.close === "function") aboutModal.close();
+    else aboutModal.removeAttribute("open");
 
-    document.body.classList.remove("modal-open");
-    updateProtocolUrl(false);
+    aboutOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+    syncModalBodyState();
+    updateAboutUrl(false);
   }
 
   function resetRecordScroll() {
@@ -354,6 +404,7 @@
 
   function openRecord(item) {
     stopSlideshows(modalContent);
+    if (aboutModal?.open) closeAbout();
     const imageCount = getImages(item).length;
 
     modalContent.innerHTML = `
@@ -362,7 +413,7 @@
           ${createImageMarkup(item, { detail: true })}
           <span class="record-detail__scan is-playing" aria-hidden="true"></span>
           <p>Visual record / ${escapeHtml(item.id)}</p>
-          ${createImageCounter(item)}
+          ${createImageIndicators(item)}
         </div>
         <div class="record-detail__content">
           <div class="record-detail__topline">
@@ -396,11 +447,10 @@
     startSlideshows(modalContent);
 
     updateUrl(item.id);
-    document.body.classList.add("modal-open");
-
     if (typeof modal.showModal === "function") modal.showModal();
     else modal.setAttribute("open", "");
 
+    syncModalBodyState();
     resetRecordScroll();
     window.requestAnimationFrame(resetRecordScroll);
   }
@@ -410,7 +460,7 @@
     if (modal.open && typeof modal.close === "function") modal.close();
     else modal.removeAttribute("open");
 
-    document.body.classList.remove("modal-open");
+    syncModalBodyState();
     updateUrl();
   }
 
@@ -433,25 +483,36 @@
 
   loadMoreButton?.addEventListener("click", loadNextBatch);
 
-  protocolOpenButtons.forEach((button) => {
-    button.addEventListener("click", openProtocol);
+  aboutOpenButtons.forEach((button) => {
+    button.addEventListener("click", openAbout);
   });
-  protocolClose?.addEventListener("click", closeProtocol);
-  protocolModal?.addEventListener("click", (event) => {
-    if (event.target === protocolModal) closeProtocol();
+  aboutClose?.addEventListener("click", closeAbout);
+  aboutModal?.addEventListener("click", (event) => {
+    if (event.target === aboutModal) closeAbout();
   });
-  protocolModal?.addEventListener("close", () => {
-    document.body.classList.remove("modal-open");
-    updateProtocolUrl(false);
+  aboutModal?.addEventListener("close", () => {
+    aboutOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+    syncModalBodyState();
+    updateAboutUrl(false);
   });
 
   modalClose.addEventListener("click", closeRecord);
+  modalContent.addEventListener("click", (event) => {
+    const indicator = event.target.closest("[data-slide-index]");
+    if (!indicator) return;
+
+    const slideshow = indicator.closest("[data-slideshow]");
+    if (!slideshow) return;
+
+    showSlide(slideshow, Number.parseInt(indicator.dataset.slideIndex, 10));
+    resetSlideshowTimer(slideshow);
+  });
   modal.addEventListener("click", (event) => {
     if (event.target === modal) closeRecord();
   });
   modal.addEventListener("close", () => {
     stopSlideshows(modalContent);
-    document.body.classList.remove("modal-open");
+    syncModalBodyState();
     updateUrl();
   });
 
@@ -471,8 +532,8 @@
   }
 
   const requestedRecord = initialParams.get("record");
-  if (initialParams.get("protocol") === "open" || window.location.hash === "#protocol") {
-    openProtocol();
+  if (initialParams.get("about") === "open") {
+    openAbout();
   } else if (requestedRecord) {
     const item = archive.find((record) => record.id === requestedRecord);
     if (item) openRecord(item);
