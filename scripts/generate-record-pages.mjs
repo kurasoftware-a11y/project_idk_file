@@ -21,6 +21,17 @@ const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character
   '"': "&quot;"
 })[character]);
 
+function createJapaneseNameMarkup(record) {
+  const name = String(record.nameJa ?? "");
+  const rubyText = String(record.nameJaRuby?.text ?? "");
+  const reading = String(record.nameJaRuby?.reading ?? "");
+  const rubyIndex = rubyText ? name.indexOf(rubyText) : -1;
+
+  if (rubyIndex < 0 || !reading) return escapeHtml(name);
+
+  return `${escapeHtml(name.slice(0, rubyIndex))}<ruby class="archive-name-ruby">${escapeHtml(rubyText)}<rp>（</rp><rt>${escapeHtml(reading)}</rt><rp>）</rp></ruby>${escapeHtml(name.slice(rubyIndex + rubyText.length))}`;
+}
+
 function getImages(record) {
   const images = Array.isArray(record.image) ? record.image : [record.image];
   return images.filter(Boolean);
@@ -87,7 +98,7 @@ function createPage(record, index) {
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
     <link rel="preload" as="image" href="../../${escapeHtml(getImages(record)[0])}">
-    <link rel="stylesheet" href="../../css/style.css?v=20260822-1">
+    <link rel="stylesheet" href="../../css/style.css?v=20260822-2">
     <script src="../../js/record-page.js?v=20260822-1" defer></script>
   </head>
   <body class="record-page">
@@ -115,7 +126,7 @@ function createPage(record, index) {
         <ol>
           <li><a href="../../index.html">IDK FILE</a></li>
           <li><a href="../../index.html#archive">Archive</a></li>
-          <li aria-current="page">${escapeHtml(record.nameJa)}</li>
+          <li aria-current="page">${createJapaneseNameMarkup(record)}</li>
         </ol>
       </nav>
 
@@ -132,7 +143,7 @@ ${createImages(record)}
           </div>
           <p class="record-detail__taxonomy">${escapeHtml(record.categoryLabel)} / ${escapeHtml(record.status)}</p>
           <h1>${escapeHtml(record.name)}</h1>
-          <p class="record-detail__ja">${escapeHtml(record.nameJa)}</p>
+          <p class="record-detail__ja">${createJapaneseNameMarkup(record)}</p>
           <section class="record-detail__summary record-detail__bilingual" aria-labelledby="summary-${escapeHtml(record.id)}">
             <h2 class="sr-only" id="summary-${escapeHtml(record.id)}">観測概要</h2>
             <p lang="ja">${escapeHtml(record.summary)}</p>
@@ -158,8 +169,8 @@ ${createImages(record)}
       </article>
 
       <nav class="record-page__pager" aria-label="前後の観測記録">
-        <a href="../${escapeHtml(previous.slug)}/"><span>← Previous record</span><strong>${escapeHtml(previous.nameJa)} / ${escapeHtml(previous.name)}</strong></a>
-        <a href="../${escapeHtml(next.slug)}/"><span>Next record →</span><strong>${escapeHtml(next.nameJa)} / ${escapeHtml(next.name)}</strong></a>
+        <a href="../${escapeHtml(previous.slug)}/"><span>← Previous record</span><strong>${createJapaneseNameMarkup(previous)} / ${escapeHtml(previous.name)}</strong></a>
+        <a href="../${escapeHtml(next.slug)}/"><span>Next record →</span><strong>${createJapaneseNameMarkup(next)} / ${escapeHtml(next.name)}</strong></a>
       </nav>
     </main>
 

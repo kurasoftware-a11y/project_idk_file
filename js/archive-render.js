@@ -67,6 +67,17 @@
 
   const pad = (value, size = 2) => String(value).padStart(size, "0");
 
+  function createJapaneseNameMarkup(item) {
+    const name = String(item.nameJa ?? "");
+    const rubyText = String(item.nameJaRuby?.text ?? "");
+    const reading = String(item.nameJaRuby?.reading ?? "");
+    const rubyIndex = rubyText ? name.indexOf(rubyText) : -1;
+
+    if (rubyIndex < 0 || !reading) return escapeHtml(name);
+
+    return `${escapeHtml(name.slice(0, rubyIndex))}<ruby class="archive-name-ruby">${escapeHtml(rubyText)}<rp>（</rp><rt>${escapeHtml(reading)}</rt><rp>）</rp></ruby>${escapeHtml(name.slice(rubyIndex + rubyText.length))}`;
+  }
+
   function getRecordSlug(item) {
     return String(item.slug || item.id).trim().toLowerCase();
   }
@@ -292,7 +303,7 @@
           <span class="archive-card__body">
             <span class="archive-card__taxonomy">${escapeHtml(item.categoryLabel)} / ${escapeHtml(item.status)}</span>
             <strong>${escapeHtml(item.name)}</strong>
-            <span class="archive-card__japanese">${escapeHtml(item.nameJa)}</span>
+            <span class="archive-card__japanese">${createJapaneseNameMarkup(item)}</span>
             <span class="archive-card__location">${escapeHtml(item.location)} <i></i> ${escapeHtml(item.recorded)}</span>
           </span>
         </a>
@@ -445,7 +456,7 @@
           </div>
           <p class="record-detail__taxonomy">${escapeHtml(item.categoryLabel)} / ${escapeHtml(item.status)}</p>
           <h2 id="modal-title">${escapeHtml(item.name)}</h2>
-          <p class="record-detail__ja">${escapeHtml(item.nameJa)}</p>
+          <p class="record-detail__ja">${createJapaneseNameMarkup(item)}</p>
           ${createInstagramLink(item)}
           <div class="record-detail__summary record-detail__bilingual">
             <p lang="ja">${escapeHtml(item.summary)}</p>

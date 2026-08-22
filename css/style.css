@@ -921,6 +921,16 @@ img {
   font-size: 0.75rem;
 }
 
+.archive-name-ruby {
+  ruby-position: over;
+}
+
+.archive-name-ruby rt {
+  font-family: var(--mono);
+  font-size: 0.5em;
+  letter-spacing: 0.08em;
+}
+
 .archive-card__location {
   margin-top: 1rem;
   display: flex;
