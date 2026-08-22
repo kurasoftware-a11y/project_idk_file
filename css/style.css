@@ -692,6 +692,7 @@ img {
 .archive-card__button {
   width: 100%;
   padding: 0;
+  display: block;
   border: 0;
   background: transparent;
   color: inherit;
@@ -1618,6 +1619,7 @@ img {
   text-transform: uppercase;
 }
 
+.record-detail h1,
 .record-detail h2 {
   margin: 0;
   font-size: clamp(2.4rem, 5vw, 4.6rem);
@@ -2234,5 +2236,141 @@ img {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Standalone record pages: the archive keeps its modal UX while direct links
+   expose the same record as a crawlable document. */
+.record-page .site-header {
+  position: relative;
+  background: rgba(5, 8, 7, 0.92);
+}
+
+.record-page__main {
+  padding: clamp(1.5rem, 4vw, 4rem) var(--page-pad) clamp(3rem, 7vw, 7rem);
+}
+
+.record-page__breadcrumb {
+  width: min(86rem, 100%);
+  margin: 0 auto 1rem;
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.record-page__breadcrumb ol {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
+}
+
+.record-page__breadcrumb li + li::before {
+  margin-right: 0.55rem;
+  content: "/";
+  color: var(--line-bright);
+}
+
+.record-page__breadcrumb a:hover,
+.record-page__breadcrumb a:focus-visible {
+  color: var(--signal);
+}
+
+.record-detail--page {
+  width: min(86rem, 100%);
+  max-height: none;
+  margin: 0 auto;
+  overflow: visible;
+  border: 1px solid var(--line-bright);
+  background: #080c0b;
+  box-shadow: 0 1.5rem 8rem rgba(0, 0, 0, 0.46);
+}
+
+.record-detail--page .record-detail__content {
+  align-self: start;
+}
+
+.record-page__disclaimer {
+  margin: 2.3rem 0 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  line-height: 1.8;
+}
+
+.record-page__pager {
+  width: min(86rem, 100%);
+  margin: 1rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.record-page__pager a {
+  min-height: 5rem;
+  padding: 1rem 1.2rem;
+  display: grid;
+  align-content: center;
+  gap: 0.35rem;
+  background: var(--ink-soft);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.record-page__pager a:last-child {
+  text-align: right;
+}
+
+.record-page__pager a:hover,
+.record-page__pager a:focus-visible {
+  outline: 0;
+  background: var(--panel-high);
+  color: var(--signal);
+}
+
+.record-page__pager span {
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.record-page__pager strong {
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .record-page__main {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .record-page__breadcrumb {
+    padding: 0 0.75rem;
+  }
+
+  .record-detail--page {
+    max-height: none;
+  }
+
+  .record-detail--page .record-detail__visual {
+    height: clamp(24rem, 68svh, 36rem);
+  }
+
+  .record-page__pager {
+    grid-template-columns: 1fr;
+  }
+
+  .record-page__pager a:last-child {
+    text-align: left;
   }
 }

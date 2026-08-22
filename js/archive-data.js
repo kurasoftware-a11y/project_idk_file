@@ -3,6 +3,7 @@
  *
  * 画像配置： assets/archive/
  * 新規追加時、下の配列へ同じ形式のオブジェクトを追加する。
+ * slug は個別ページのURLに使用する。追加・編集後は node scripts/generate-record-pages.mjs を実行する。
  * image は文字列または配列で指定可能。複数指定した場合は自動で切り替わる。
  * imagePosition は詳細画像の縦位置。"top" = 上端、"center" = 中央、"bottom" = 下端。省略時は "center"。
  * 画像ごとに変える場合は、image と同じ順番で imagePosition: ["top", "bottom"] のように指定できる。
@@ -18,6 +19,7 @@ window.IDK_ARCHIVE_SETTINGS = {
 window.IDK_ARCHIVE = [
   {
     id: "001",
+    slug: "kappa",
     name: "Kappa",
     nameJa: "河童",
     category: "aquatic",
@@ -41,6 +43,7 @@ window.IDK_ARCHIVE = [
   },
   {
     id: "002",
+    slug: "noppera-bo",
     name: "Noppera-bo",
     nameJa: "のっぺらぼう",
     category: "terrestrial",
@@ -64,6 +67,7 @@ window.IDK_ARCHIVE = [
   },
   {
     id: "003",
+    slug: "abyssal-strix",
     name: "Abyssal Strix",
     nameJa: "アビサル・ストリクス",
     category: "aquatic",
@@ -87,6 +91,7 @@ window.IDK_ARCHIVE = [
   },
   {
     id: "004",
+    slug: "rain-feeder",
     name: "Rain Feeder",
     nameJa: "雨喰い",
     category: "terrestrial",
@@ -110,6 +115,7 @@ window.IDK_ARCHIVE = [
   },
   {
     id: "005",
+    slug: "longstep",
     name: "Longstep",
     nameJa: "長歩個体",
     category: "terrestrial",
@@ -133,6 +139,7 @@ window.IDK_ARCHIVE = [
   },
   {
     id: "006",
+    slug: "tota-crownback",
     name: "Tota Crownback",
     nameJa: "トタ冠背個体",
     category: "aquatic",
@@ -156,6 +163,7 @@ window.IDK_ARCHIVE = [
   },
   {
     id: "007",
+    slug: "red-false-maw",
     name: "Red False-Maw",
     nameJa: "赤腹偽口個体",
     category: "terrestrial",

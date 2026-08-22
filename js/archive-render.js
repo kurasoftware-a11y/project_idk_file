@@ -1,6 +1,16 @@
 (function () {
   "use strict";
 
+  // History APIで個別URLへ移動しても、既存の相対パスは一覧ページを基準に解決する。
+  const initialDocumentUrl = new URL(window.location.href);
+  const siteRootUrl = new URL("./", initialDocumentUrl);
+  if (!document.querySelector("base")) {
+    const runtimeBase = document.createElement("base");
+    runtimeBase.href = siteRootUrl.href;
+    runtimeBase.dataset.idkRuntimeBase = "";
+    document.head.prepend(runtimeBase);
+  }
+
   const archive = Array.isArray(window.IDK_ARCHIVE)
     ? [...window.IDK_ARCHIVE].sort((a, b) =>
         String(b.id).localeCompare(String(a.id), undefined, { numeric: true })
@@ -32,6 +42,8 @@
   const aboutClose = aboutModal?.querySelector("[data-about-close]");
 
   const initialParams = new URLSearchParams(window.location.search);
+  let archiveUrl = new URL(window.location.href);
+  let modalHistoryActive = false;
   const state = {
     batch: Math.max(1, Number.parseInt(initialParams.get("batch") || initialParams.get("page"), 10) || 1),
     query: "",
@@ -54,6 +66,14 @@
   })[character]);
 
   const pad = (value, size = 2) => String(value).padStart(size, "0");
+
+  function getRecordSlug(item) {
+    return String(item.slug || item.id).trim().toLowerCase();
+  }
+
+  function getRecordHref(item) {
+    return `archive/${encodeURIComponent(getRecordSlug(item))}/`;
+  }
 
   function getImages(item) {
     const value = item.image ?? item.images;
@@ -261,7 +281,7 @@
   function createCard(item, index) {
     return `
       <article class="archive-card" style="--card-delay:${index * 70}ms">
-        <button class="archive-card__button" type="button" data-record-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.nameJa)}の詳細を表示">
+        <a class="archive-card__button" href="${escapeHtml(getRecordHref(item))}" data-record-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.nameJa)}の詳細を表示">
           <span class="archive-card__media archive-slideshow" data-image-alt="${escapeHtml(item.nameJa)}">
             ${createImageMarkup(item, { firstOnly: true })}
             <span class="archive-card__reticle" aria-hidden="true"></span>
@@ -275,23 +295,26 @@
             <span class="archive-card__japanese">${escapeHtml(item.nameJa)}</span>
             <span class="archive-card__location">${escapeHtml(item.location)} <i></i> ${escapeHtml(item.recorded)}</span>
           </span>
-        </button>
+        </a>
       </article>
     `;
   }
 
-  function updateUrl(recordId) {
+  function updateArchiveUrl() {
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("page");
+      archiveUrl.searchParams.delete("page");
+      archiveUrl.searchParams.delete("record");
 
-      if (!isPreview && state.batch > 1) url.searchParams.set("batch", state.batch);
-      else url.searchParams.delete("batch");
+      if (!isPreview && state.batch > 1) archiveUrl.searchParams.set("batch", state.batch);
+      else archiveUrl.searchParams.delete("batch");
 
-      if (recordId) url.searchParams.set("record", recordId);
-      else url.searchParams.delete("record");
-
-      window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+      if (!modalHistoryActive) {
+        window.history.replaceState(
+          { idkArchive: true },
+          "",
+          `${archiveUrl.pathname}${archiveUrl.search}${archiveUrl.hash}`
+        );
+      }
     } catch (_) {
       // file:// など履歴APIを利用できない環境でも表示は継続する。
     }
@@ -336,7 +359,7 @@
     if (archiveSentinel) archiveSentinel.hidden = !hasMore;
     if (archiveEnd) archiveEnd.hidden = filtered.length === 0 || hasMore;
 
-    updateUrl();
+    updateArchiveUrl();
   }
 
   function loadNextBatch() {
@@ -402,7 +425,7 @@
     }
   }
 
-  function openRecord(item) {
+  function openRecord(item, { updateHistory = true } = {}) {
     stopSlideshows(modalContent);
     if (aboutModal?.open) closeAbout();
     const imageCount = getImages(item).length;
@@ -446,7 +469,23 @@
 
     startSlideshows(modalContent);
 
-    updateUrl(item.id);
+    if (updateHistory) {
+      try {
+        const recordUrl = new URL(getRecordHref(item), archiveUrl);
+        window.history.pushState(
+          {
+            idkRecord: item.id,
+            archiveUrl: `${archiveUrl.pathname}${archiveUrl.search}${archiveUrl.hash}`
+          },
+          "",
+          `${recordUrl.pathname}${recordUrl.search}${recordUrl.hash}`
+        );
+        modalHistoryActive = true;
+      } catch (_) {
+        modalHistoryActive = false;
+      }
+    }
+
     if (typeof modal.showModal === "function") modal.showModal();
     else modal.setAttribute("open", "");
 
@@ -455,13 +494,24 @@
     window.requestAnimationFrame(resetRecordScroll);
   }
 
-  function closeRecord() {
+  function hideRecord() {
     stopSlideshows(modalContent);
     if (modal.open && typeof modal.close === "function") modal.close();
     else modal.removeAttribute("open");
 
     syncModalBodyState();
-    updateUrl();
+  }
+
+  function closeRecord() {
+    const shouldNavigateBack = modalHistoryActive;
+    modalHistoryActive = false;
+    hideRecord();
+
+    if (shouldNavigateBack) {
+      window.history.back();
+    } else {
+      updateArchiveUrl();
+    }
   }
 
   searchInput?.addEventListener("input", (event) => {
@@ -477,8 +527,21 @@
   grid.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-record-id]");
     if (!trigger) return;
+
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) return;
+
     const item = archive.find((record) => record.id === trigger.dataset.recordId);
-    if (item) openRecord(item);
+    if (item) {
+      event.preventDefault();
+      openRecord(item);
+    }
   });
 
   loadMoreButton?.addEventListener("click", loadNextBatch);
@@ -510,10 +573,29 @@
   modal.addEventListener("click", (event) => {
     if (event.target === modal) closeRecord();
   });
+  modal.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeRecord();
+  });
   modal.addEventListener("close", () => {
     stopSlideshows(modalContent);
     syncModalBodyState();
-    updateUrl();
+  });
+
+  window.addEventListener("popstate", (event) => {
+    const requestedId = event.state?.idkRecord;
+    if (requestedId) {
+      const item = archive.find((record) => record.id === requestedId);
+      if (item) {
+        modalHistoryActive = true;
+        openRecord(item, { updateHistory: false });
+        return;
+      }
+    }
+
+    modalHistoryActive = false;
+    if (modal.open || modal.hasAttribute("open")) hideRecord();
+    archiveUrl = new URL(window.location.href);
   });
 
   document.querySelectorAll("[data-total-records]").forEach((element) => {
