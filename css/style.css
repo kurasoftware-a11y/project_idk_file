@@ -149,14 +149,6 @@ img {
   letter-spacing: 0.18em;
 }
 
-.brand__division {
-  padding-left: 0.7rem;
-  border-left: 1px solid var(--line-bright);
-  color: var(--text-soft);
-  font-size: 0.58rem;
-  letter-spacing: 0.13em;
-}
-
 .site-nav {
   display: flex;
   align-items: center;
@@ -309,19 +301,6 @@ img {
   letter-spacing: -0.075em;
   line-height: 0.78;
   text-shadow: 0 0 2.5rem rgba(174, 226, 207, 0.09);
-}
-
-.hero__title-sub {
-  display: block;
-  width: max-content;
-  margin: 2.3rem 0 0 auto;
-  color: #bac3bf;
-  font-family: var(--mono);
-  font-size: clamp(0.68rem, 1.1vw, 0.9rem);
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  line-height: 1.7;
-  text-align: right;
 }
 
 .hero__lead {
@@ -658,6 +637,10 @@ img {
   font-size: 0.6rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
+}
+
+.archive-section .section-heading h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
 }
 
 .archive-load__progress span:first-child {
@@ -1901,7 +1884,6 @@ img {
     --header-height: 4.25rem;
   }
 
-  .brand__division,
   .system-status {
     display: none;
   }
@@ -1969,11 +1951,6 @@ img {
 
   .hero__title-main {
     font-size: clamp(4rem, 22vw, 7rem);
-  }
-
-  .hero__title-sub {
-    margin-top: 1.6rem;
-    font-size: 0.58rem;
   }
 
   .hero__lead br {
