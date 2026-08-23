@@ -212,4 +212,29 @@ window.IDK_ARCHIVE = [
     descriptionEn: "The feature that first identified the specimen as anomalous was not its size, but the tissue surrounding its bite. Mammalian samples showed extensive loss of cellular nuclei, while chromosomal DNA had been fragmented beyond reconstruction by conventional analysis. An unidentified factor isolated from the salivary glands does not appear to dissolve DNA directly. Instead, it forces nucleic-acid degradation mechanisms already present within host cells into abnormal activity. Nucleobases and nucleosides released from the collapsing tissue are ingested together with blood, and a portion of this material rapidly accumulates in the ovaries and damaged tissues of the specimen. The species may therefore depend on other organisms for molecular components it cannot synthesize efficiently on its own, reusing them for DNA repair and reproduction. Body size varies dramatically throughout development. Newly emerged specimens measure only around 20 mm, while mature individuals that have completed multiple feeding cycles commonly reach approximately 70 to 90 mm. During egg development, the abdomen expands further, and some recorded females have possessed a body mass approaching the size of an adult human fist even without including the legs. This extreme difference in scale may explain why small flying specimens and much larger individuals were historically treated as unrelated organisms. Despite its size, flight produces remarkably little audible noise, and the terminal abdomen emits a faint yellow-green luminescence in darkness. Among the Ewe peoples of West Africa, traditions describe an entity known as the 'Adze,' said to enter homes at night in the form of a small flying creature, drink human blood, and leave its victims weakened or ill. No direct connection between the folklore and this specimen has been established. However, several details overlap with unusual precision: nocturnal intrusion, near-silent flight, faint luminescence, attacks during sleep, and unexplained physical decline afterward. Some historical accounts interpreted as victims having their 'blood taken' may have involved something more fundamental—the extraction of living cells and genetic material at the molecular level.",
     traits: ["核酸分解", "段階的巨大化", "無音飛翔"]
   },
+  {
+    id: "009",
+    slug: "takao-black-ascetic",
+    name: "Takao Black Ascetic",
+    nameJa: "峰渡烏",
+    nameJaRuby: { text: "峰渡烏", reading: "ミネワタリガラス" },
+    category: "aerial",
+    categoryLabel: "飛行-Aerial",
+    risk: "gamma",
+    riskLabel: "Gamma risk",
+    status: "Observed",
+    image: [
+      "assets/archive/009_1.png",
+      "assets/archive/009_2.png"
+    ],
+    imagePosition: "center",
+    instagram: "",
+    location: "Mt. Takao, Hachioji, Tokyo, JP",
+    recorded: "2013.11.07",
+    summary: "東京都八王子市・高尾山の山中で、二足歩行と短距離滑空を繰り返す姿が記録された黒色の人型鳥類。",
+    summaryEn: "A black humanoid avian life form recorded on Mt. Takao in Hachioji, Tokyo, repeatedly alternating between bipedal movement and short-distance gliding.",
+    description: "最初の記録では、対象は日の出前の登山道を約6分間にわたり二足で移動していた。体高は推定150〜165cm。全身は光沢の弱い黒色羽毛に覆われ、腕部から脇腹にかけて発達した風切羽を持つ。人間を察知すると樹上へ飛び立つのではなく、急斜面を駆け上がった後に両腕を展開し、谷を横切るように滑空した。これまで羽ばたきによる継続飛行は確認されておらず、高所から低所へ移動する際だけ翼状器官を使用すると考えられている。地上では両翼を身体の側面へ垂らすため、遠方からは黒衣をまとった痩身の人物にも見える。高尾山は古くから修験道の霊山として知られ、薬王院では飯縄大権現の眷属として天狗が信仰されてきた。なかでも嘴を持つ烏天狗の姿は、本個体の頭部形態と著しく類似する。山伏の姿が天狗と同一視されていったという伝承的背景とは別に、山中で目撃された未知の人型鳥類が『山を自在に移動する黒い行者』として認識され、その特徴が後世の天狗像へ混入した可能性も否定できない。対象が登山道を頻繁に利用する理由は不明だが、複数の記録で人間の後方を一定距離を保ちながら追従する行動が確認されている。追跡なのか模倣なのか、あるいは単に人間が切り開いた経路を移動に利用しているだけなのかは判明していない。",
+    descriptionEn: "In the earliest record, the subject moved bipedally along a mountain trail for approximately six minutes before sunrise. Its standing height is estimated at 150–165 cm. The body is covered in low-gloss black plumage, with elongated flight feathers extending from the arms toward the flanks. When it detected human presence, it did not take off vertically into the trees. Instead, it climbed a steep slope at speed, spread both arms, and glided across a ravine. Sustained powered flight through wingbeats has never been confirmed, suggesting that the wing-like structures are used primarily for descending or crossing gaps between elevated terrain. When folded against the body, the wings hang along its sides, causing the subject to resemble a thin human figure dressed in black robes when viewed from a distance. Mt. Takao has long been associated with Shugendo mountain asceticism, and tengu are traditionally revered at Yakuoin Temple as attendants of Iizuna Daigongen. Of particular interest is the crow-beaked karasu-tengu, whose appearance bears a notable resemblance to the subject's cranial morphology. Separate from the traditional interpretation that mountain ascetics themselves contributed to the image of the tengu, it is possible that encounters with an unidentified humanoid avian species were remembered as sightings of 'black ascetics moving freely through the mountains,' with these characteristics later becoming incorporated into tengu imagery. Why the subject frequently uses established hiking trails remains unknown. Multiple records show individuals following humans from behind while maintaining a consistent distance. Whether this behavior represents pursuit, imitation, or simply the use of human-made paths as convenient travel corridors has yet to be determined.",
+    traits: ["黒色羽毛", "二足歩行", "斜面滑空"]
+  },
 ];
