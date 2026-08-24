@@ -193,7 +193,6 @@ img {
 
 .site-nav a:hover::after,
 .site-nav a:focus-visible::after,
-.site-nav a[aria-current="page"]::after,
 .site-nav button:hover::after,
 .site-nav button:focus-visible::after {
   transform: scaleX(1);
@@ -304,11 +303,38 @@ img {
 }
 
 .hero__lead {
-  max-width: 41rem;
+  max-width: 45rem;
   margin: 3rem 0 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.hero__lead p {
+  margin: 0;
+}
+
+.hero__lead-ja {
   color: #b6c0bb;
   font-size: clamp(0.9rem, 1.25vw, 1.05rem);
-  line-height: 2;
+  line-height: 1.9;
+}
+
+.hero__lead-en {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(185, 255, 79, 0.42);
+  color: #8f9b96;
+  font-family: var(--mono);
+  font-size: clamp(0.58rem, 0.75vw, 0.68rem);
+  letter-spacing: 0.015em;
+  line-height: 1.75;
+}
+
+.hero__lead-en span {
+  margin-right: 0.7rem;
+  color: var(--signal);
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  vertical-align: 0.08em;
 }
 
 .hero__actions {
@@ -1953,8 +1979,13 @@ img {
     font-size: clamp(4rem, 22vw, 7rem);
   }
 
-  .hero__lead br {
-    display: none;
+  .hero__lead {
+    margin-top: 2.2rem;
+    gap: 0.7rem;
+  }
+
+  .hero__lead-en {
+    font-size: 0.58rem;
   }
 
   .hero__telemetry {
