@@ -251,7 +251,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/010_1.png",
       "assets/archive/010_2.png"
     ],
-    imagePosition: "center",
+    imagePosition: "top",
     instagram: "",
     location: "Postojna, Slovenia",
     recorded: "2009.09.14",
