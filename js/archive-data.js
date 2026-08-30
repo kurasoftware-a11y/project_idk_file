@@ -237,4 +237,28 @@ window.IDK_ARCHIVE = [
     descriptionEn: "In the earliest record, the subject moved bipedally along a mountain trail for approximately six minutes before sunrise. Its standing height is estimated at 150–165 cm. The body is covered in low-gloss black plumage, with elongated flight feathers extending from the arms toward the flanks. When it detected human presence, it did not take off vertically into the trees. Instead, it climbed a steep slope at speed, spread both arms, and glided across a ravine. Sustained powered flight through wingbeats has never been confirmed, suggesting that the wing-like structures are used primarily for descending or crossing gaps between elevated terrain. When folded against the body, the wings hang along its sides, causing the subject to resemble a thin human figure dressed in black robes when viewed from a distance. Mt. Takao has long been associated with Shugendo mountain asceticism, and tengu are traditionally revered at Yakuoin Temple as attendants of Iizuna Daigongen. Of particular interest is the crow-beaked karasu-tengu, whose appearance bears a notable resemblance to the subject's cranial morphology. Separate from the traditional interpretation that mountain ascetics themselves contributed to the image of the tengu, it is possible that encounters with an unidentified humanoid avian species were remembered as sightings of 'black ascetics moving freely through the mountains,' with these characteristics later becoming incorporated into tengu imagery. Why the subject frequently uses established hiking trails remains unknown. Multiple records show individuals following humans from behind while maintaining a consistent distance. Whether this behavior represents pursuit, imitation, or simply the use of human-made paths as convenient travel corridors has yet to be determined.",
     traits: ["黒色羽毛", "二足歩行", "斜面滑空"]
   },
+  {
+    id: "010",
+    slug: "karst-elder",
+    name: "Karst Elder",
+    nameJa: "カルスト老成種",
+    category: "aquatic",
+    categoryLabel: "水生-Aquatic",
+    risk: "gamma",
+    riskLabel: "Gamma risk",
+    status: "Observed",
+    image: [
+      "assets/archive/010_1.png",
+      "assets/archive/010_2.png"
+    ],
+    imagePosition: "center",
+    instagram: "",
+    location: "Postojna, Slovenia",
+    recorded: "2009.09.14",
+    summary: "スロベニア南西部の地下水系で記録された、ホライモリに酷似する大型洞窟性両生類。",
+    summaryEn: "A large cave-dwelling amphibian resembling an olm, recorded within a subterranean water system in southwestern Slovenia.",
+    description: "対象はポストイナ周辺の地下水路に設置された水位観測カメラによって記録された。映像には、白色から淡い桃色の皮膚を持つ大型の両生類様生物が、洞窟湖の岩壁に沿ってゆっくりと通過する様子が残されている。頭部両側には外鰓とみられる樹枝状器官が確認され、眼は極端に小さく、視覚よりも水流や振動の感知に依存している可能性が高い。特筆すべきは体長で、確認例ごとの差が非常に大きい。若齢と推定される個体は20〜30cm程度で、現地に生息するホライモリとほとんど区別できない一方、成長とともに身体が著しく伸長し、老成個体では5〜12mを超える可能性が示唆されている。このため、従来ホライモリとして記録されてきた一部の個体が、実際には本種の幼若個体であった可能性も否定できない。カルスト地帯では古くから、洪水の後に洞窟から白い生物が流れ出し、それを『地下に棲む竜の幼体』とみなした記録が残されている。もしこの伝承が単なる比喩ではなく、成長段階の異なる同一種を目撃した結果だとすれば、『幼体』と呼ばれてきた生物のさらに奥に、長期間地下水系へ潜伏する巨大な成熟個体が存在していた可能性がある。現在まで完全な成体標本は得られておらず、観測された最大個体についても身体後半部は暗所へ消失している。",
+    descriptionEn: "The subject was recorded by a water-level monitoring camera installed within a subterranean channel near Postojna. The footage shows a large amphibian-like organism with pale white to faintly pink skin moving slowly along the wall of an underground lake. Branching structures resembling external gills are visible on both sides of the head, while the eyes are extremely reduced, suggesting that the animal may rely more heavily on water movement and vibration than on vision. One of its most unusual characteristics is the dramatic variation in body length between observed specimens. Individuals believed to be juveniles measure only around 20–30 cm and are almost indistinguishable from the olm native to the region, whereas prolonged growth appears to produce extreme elongation of the body. Fully mature specimens may exceed 5–12 meters in length. This raises the possibility that some animals historically identified as ordinary olms may in fact have represented juvenile stages of this species. Karst regions of Slovenia have long preserved accounts of pale creatures being washed from caves after floods and interpreted as the offspring of dragons dwelling underground. If these stories were not entirely metaphorical, but instead originated from encounters with different growth stages of the same organism, the so-called 'dragon young' may have represented only the smallest visible phase of a much larger subterranean life cycle. No complete adult specimen has yet been recovered, and even the largest recorded individual disappeared into darkness before the rear portion of its body could be documented.",
+    traits: ["外鰓器官", "継続成長", "洞窟適応"]
+  },
 ];
