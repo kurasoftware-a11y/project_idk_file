@@ -9,9 +9,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=20260825-2">
-    <script src="js/archive-data.js?v=20260830-1" defer></script>
-    <script src="js/archive-render.js?v=20260822-3" defer></script>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="css/style.css?v=20260830-4">
+    <script src="js/archive-data.js?v=20260830-2" defer></script>
+    <script src="js/archive-render.js?v=20260830-1" defer></script>
+    <script src="js/archive-globe.js?v=20260830-2" defer></script>
   </head>
   <body class="archive-home">
     <a class="skip-link" href="#archive">記録一覧へ移動</a>
@@ -73,14 +75,31 @@
       </section>
 
       <section class="archive-section" id="archive" aria-labelledby="archive-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow"><span>Classified index</span> / <span data-total-records>000</span> records</p>
-            <h2 id="archive-title">Archive</h2>
-          </div>
-          <p class="section-heading__copy">
-            取得済みの視覚記録。検索または分類で対象を絞り込み、各画像から詳細な観測データを確認できます。
+        <div class="archive-orbit" data-globe-shell aria-hidden="true">
+          <div class="archive-orbit__reticle"></div>
+          <div class="archive-orbit__globe" id="archive-globe"></div>
+          <div class="archive-orbit__veil"></div>
+          <p class="archive-orbit__readout">
+            <span>Tracking signal</span>
+            <strong data-orbit-readout>GLOBAL SWEEP / 010 SIGNALS</strong>
           </p>
+        </div>
+
+        <div class="archive-section__content">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow"><span>Classified index</span> / <span data-total-records>000</span> records</p>
+              <h2 id="archive-title">Archive</h2>
+            </div>
+            <p class="section-heading__copy">
+              取得済みの視覚記録。検索または分類で対象を絞り込み、各画像から詳細な観測データを確認できます。
+            </p>
+          </div>
+
+        <div class="archive-country-filter" id="archive-country-filter" hidden>
+          <span>Region filter active</span>
+          <strong data-archive-country-name></strong>
+          <button type="button" data-archive-country-clear>Clear <span aria-hidden="true">×</span></button>
         </div>
 
         <div class="archive-toolbar" aria-label="アーカイブ絞り込み">
@@ -116,6 +135,7 @@
           <button class="button button--ghost" id="archive-load-more" type="button">Load more <span aria-hidden="true">↓</span></button>
           <p class="archive-load__end" id="archive-end" hidden>END OF RECORDS // ARCHIVE COMPLETE</p>
           <div class="archive-sentinel" id="archive-sentinel" aria-hidden="true"></div>
+        </div>
         </div>
       </section>
     </main>

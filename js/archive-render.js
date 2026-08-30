@@ -34,6 +34,10 @@
   const loadMoreButton = document.getElementById("archive-load-more");
   const archiveEnd = document.getElementById("archive-end");
   const archiveSentinel = document.getElementById("archive-sentinel");
+  const archiveSection = document.getElementById("archive");
+  const countryFilterBar = document.getElementById("archive-country-filter");
+  const countryFilterName = document.querySelector("[data-archive-country-name]");
+  const countryFilterClear = document.querySelector("[data-archive-country-clear]");
   const modal = document.getElementById("archive-modal");
   const modalContent = document.getElementById("modal-content");
   const modalClose = modal.querySelector("[data-modal-close]");
@@ -42,12 +46,15 @@
   const aboutClose = aboutModal?.querySelector("[data-about-close]");
 
   const initialParams = new URLSearchParams(window.location.search);
+  const countryCodes = new Set(archive.map((item) => item.countryCode).filter(Boolean));
+  const requestedCountry = (initialParams.get("country") || "all").toUpperCase();
   let archiveUrl = new URL(window.location.href);
   let modalHistoryActive = false;
   const state = {
     batch: Math.max(1, Number.parseInt(initialParams.get("batch") || initialParams.get("page"), 10) || 1),
     query: "",
-    category: "all"
+    category: "all",
+    country: countryCodes.has(requestedCountry) ? requestedCountry : "all"
   };
 
   function syncModalBodyState() {
@@ -272,12 +279,15 @@
 
     return archive.filter((item) => {
       const matchesCategory = state.category === "all" || item.category === state.category;
+      const matchesCountry = state.country === "all" || item.countryCode === state.country;
       const searchable = [
         item.id,
         item.name,
         item.nameJa,
         item.categoryLabel,
         item.location,
+        item.countryName,
+        item.countryNameJa,
         item.summary,
         item.summaryEn,
         item.description,
@@ -285,7 +295,7 @@
         ...(item.traits || [])
       ].join(" ").toLocaleLowerCase("ja");
 
-      return matchesCategory && (!query || searchable.includes(query));
+      return matchesCategory && matchesCountry && (!query || searchable.includes(query));
     });
   }
 
@@ -318,6 +328,9 @@
 
       if (!isPreview && state.batch > 1) archiveUrl.searchParams.set("batch", state.batch);
       else archiveUrl.searchParams.delete("batch");
+
+      if (!isPreview && state.country !== "all") archiveUrl.searchParams.set("country", state.country);
+      else archiveUrl.searchParams.delete("country");
 
       if (!modalHistoryActive) {
         window.history.replaceState(
@@ -371,6 +384,44 @@
     if (archiveEnd) archiveEnd.hidden = filtered.length === 0 || hasMore;
 
     updateArchiveUrl();
+  }
+
+  function getCountryMeta(countryCode) {
+    return archive.find((item) => item.countryCode === countryCode) || null;
+  }
+
+  function syncCountryFilterUi() {
+    const item = getCountryMeta(state.country);
+    const isActive = Boolean(item);
+
+    if (countryFilterBar) countryFilterBar.hidden = !isActive;
+    if (countryFilterName) {
+      countryFilterName.textContent = isActive
+        ? `${item.countryNameJa || item.countryName} / ${item.countryName}`
+        : "";
+    }
+  }
+
+  function setCountryFilter(countryCode, { scroll = true } = {}) {
+    const normalizedCode = String(countryCode || "all").toUpperCase();
+    const nextCountry = countryCodes.has(normalizedCode) ? normalizedCode : "all";
+
+    state.country = nextCountry;
+    syncCountryFilterUi();
+    renderArchive({ reset: true });
+
+    window.dispatchEvent(new CustomEvent("idk:archive-country-change", {
+      detail: { countryCode: state.country }
+    }));
+
+    if (scroll && archiveSection) {
+      window.requestAnimationFrame(() => {
+        archiveSection.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+          block: "start"
+        });
+      });
+    }
   }
 
   function loadNextBatch() {
@@ -535,6 +586,14 @@
     renderArchive({ reset: true });
   });
 
+  countryFilterClear?.addEventListener("click", () => {
+    setCountryFilter("all", { scroll: false });
+  });
+
+  window.addEventListener("idk:country-select", (event) => {
+    setCountryFilter(event.detail?.countryCode, { scroll: event.detail?.scroll !== false });
+  });
+
   grid.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-record-id]");
     if (!trigger) return;
@@ -614,6 +673,7 @@
   });
 
   initializeCategories();
+  syncCountryFilterUi();
   renderArchive();
 
   if (!isPreview && archiveSentinel && "IntersectionObserver" in window) {
