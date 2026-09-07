@@ -35,7 +35,16 @@
   let ready = false;
   let rotationResumeTimer = 0;
   let pulseClearTimer = 0;
-  let cardFocusFrame = 0;
+  let globeVisible = false;
+
+  function syncAnimation() {
+    if (!globe || !ready) return;
+    if (globeVisible && !document.hidden && !document.body.classList.contains("modal-open")) {
+      globe.resumeAnimation();
+    } else {
+      globe.pauseAnimation();
+    }
+  }
 
   function loadScript(src, globalName) {
     if (window[globalName]) return Promise.resolve();
@@ -96,13 +105,11 @@
         ? "rgba(185, 255, 79, 0.3)"
         : "rgba(108, 130, 121, 0.075)")
       .polygonAltitude((feature) => feature.archiveCountryCode === activeRecord?.countryCode ? 0.014 : 0.005)
-      .polygonsData([...countryFeatures])
       .pointColor((item) => item.id === activeRecordId
         ? "rgba(235, 255, 204, 0.96)"
         : "rgba(185, 255, 79, 0.42)")
       .pointAltitude((item) => item.id === activeRecordId ? 0.06 : 0.018)
-      .pointRadius((item) => item.id === activeRecordId ? 0.42 : 0.2)
-      .pointsData([...records]);
+      .pointRadius((item) => item.id === activeRecordId ? 0.42 : 0.2);
   }
 
   function emitSinglePulse(record) {
@@ -165,45 +172,11 @@
     return card?.querySelector("[data-record-id]")?.dataset.recordId || "";
   }
 
-  function scheduleNearestCard() {
-    window.cancelAnimationFrame(cardFocusFrame);
-    cardFocusFrame = window.requestAnimationFrame(() => {
-      const viewportCenter = window.innerHeight * 0.52;
-      const visibleCards = [...grid.querySelectorAll(".archive-card")]
-        .map((card) => ({ card, rect: card.getBoundingClientRect() }))
-        .filter(({ rect }) => rect.bottom > 0 && rect.top < window.innerHeight);
-
-      if (!visibleCards.length) return;
-      visibleCards.sort((a, b) => {
-        const aCenter = a.rect.top + a.rect.height / 2;
-        const bCenter = b.rect.top + b.rect.height / 2;
-        return Math.abs(aCenter - viewportCenter) - Math.abs(bCenter - viewportCenter);
-      });
-
-      const nearestId = getRecordIdFromCard(visibleCards[0].card);
-      if (nearestId) setActiveCard(nearestId);
-    });
-  }
-
-  function observeArchiveCards() {
-    grid.querySelectorAll(".archive-card").forEach((card) => {
-      if (card.dataset.globeObserved) return;
-      card.dataset.globeObserved = "true";
-      cardObserver.observe(card);
-    });
-
+  function resetRemovedCard() {
     if (activeRecordId && !grid.querySelector(`[data-record-id="${activeRecordId}"]`)) {
       resetActiveCard();
     }
   }
-
-  const cardObserver = new IntersectionObserver((entries) => {
-    if (!entries.some((entry) => entry.isIntersecting)) return;
-    scheduleNearestCard();
-  }, {
-    rootMargin: "-28% 0px -34% 0px",
-    threshold: [0, 0.15, 0.35]
-  });
 
   grid.addEventListener("pointerover", (event) => {
     const card = event.target.closest(".archive-card");
@@ -216,9 +189,8 @@
     if (recordId) setActiveCard(recordId);
   });
 
-  const gridObserver = new MutationObserver(observeArchiveCards);
+  const gridObserver = new MutationObserver(resetRemovedCard);
   gridObserver.observe(grid, { childList: true });
-  observeArchiveCards();
 
   async function initializeGlobe() {
     if (initialized) return;
@@ -255,10 +227,10 @@
         }
       })
         .backgroundColor("rgba(0, 0, 0, 0)")
-        .showAtmosphere(true)
+        .showAtmosphere(!coarsePointer)
         .atmosphereColor("#6f9d77")
         .atmosphereAltitude(0.11)
-        .showGraticules(true)
+        .showGraticules(!coarsePointer)
         .globeCurvatureResolution(coarsePointer ? 8 : 6)
         .polygonCapCurvatureResolution(coarsePointer ? 9 : 7)
         .polygonsTransitionDuration(prefersReducedMotion ? 0 : 420)
@@ -278,6 +250,7 @@
         .onGlobeReady(() => {
           ready = true;
           globeShell.classList.add("is-ready");
+          syncAnimation();
         });
 
       const material = globe.globeMaterial();
@@ -287,7 +260,7 @@
       material.shininess = 6;
 
       const renderer = globe.renderer();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarsePointer ? 1.2 : 1.6));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarsePointer ? 1 : 1.6));
       renderer.domElement.style.pointerEvents = "none";
 
       const orbit = globe.controls();
@@ -298,6 +271,7 @@
       orbit.dampingFactor = 0.08;
 
       refreshGlobeLayers();
+      globe.polygonsData(countryFeatures).pointsData(records);
       resizeGlobe();
       globe.pointOfView({ lat: 18, lng: 25, altitude: coarsePointer ? 2.75 : 2.35 }, 0);
 
@@ -305,19 +279,15 @@
       resizeObserver.observe(globeElement);
 
       const visibilityObserver = new IntersectionObserver((entries) => {
-        if (!globe || !ready) return;
-        if (entries.some((entry) => entry.isIntersecting)) globe.resumeAnimation();
-        else globe.pauseAnimation();
-      }, { rootMargin: "180px" });
-      visibilityObserver.observe(archiveSection);
-
-      document.addEventListener("visibilitychange", () => {
-        if (!globe || !ready) return;
-        if (document.hidden) globe.pauseAnimation();
-        else if (archiveSection.getBoundingClientRect().bottom > 0 && archiveSection.getBoundingClientRect().top < window.innerHeight) {
-          globe.resumeAnimation();
-        }
+        globeVisible = entries.some((entry) => entry.isIntersecting);
+        syncAnimation();
       });
+      visibilityObserver.observe(globeElement);
+
+      document.addEventListener("visibilitychange", syncAnimation);
+      const modalObserver = new MutationObserver(syncAnimation);
+      modalObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+      syncAnimation();
     } catch (error) {
       console.error("IDK archive globe initialization failed", error);
       globeShell.hidden = true;
@@ -330,7 +300,7 @@
       observer.disconnect();
       initializeGlobe();
     }, { rootMargin: "420px" });
-    loader.observe(archiveSection);
+    loader.observe(globeElement);
   } else {
     initializeGlobe();
   }

@@ -133,13 +133,14 @@
     const alt = detail ? `${item.nameJa}の拡大画像` : item.nameJa;
 
     return images.map((image, index) => {
+      const source = detail ? image : window.IDK_THUMBNAILS?.[image] || image;
       const imagePosition = detail ? getImagePosition(item, index) : getThumbnailPosition(item, index);
       const imagePositionPercent = { top: "0%", center: "50%", bottom: "100%" }[imagePosition];
 
       return `
       <img
         class="archive-slideshow__image${index === 0 ? " is-active is-revealing" : ""}"
-        src="${escapeHtml(image)}"
+        src="${escapeHtml(source)}"
         alt="${index === 0 ? escapeHtml(alt) : ""}"
         ${index === 0 ? "" : 'aria-hidden="true"'}
         ${detail ? "" : 'loading="lazy"'}

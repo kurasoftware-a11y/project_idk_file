@@ -3,6 +3,7 @@
  *
  * 画像配置： assets/archive/
  * 新規追加時、下の配列へ同じ形式のオブジェクトを追加する。
+ * 画像追加・差し替え後は python scripts/generate-thumbnails.py を実行する（Pillowが必要）。
  * slug は個別ページのURLに使用する。追加・編集後は node scripts/generate-record-pages.mjs を実行する。
  * image は文字列または配列で指定可能。複数指定した場合は自動で切り替わる。
  * imagePosition は詳細画像の縦位置。"top" = 上端、"center" = 中央、"bottom" = 下端。省略時は "center"。
