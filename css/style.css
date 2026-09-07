@@ -131,6 +131,32 @@ img {
   border-bottom: 1px solid rgba(219, 234, 226, 0.14);
 }
 
+.site-header__brand-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-header__instagram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  color: var(--text-soft);
+}
+
+.site-header__instagram:hover,
+.site-header__instagram:focus-visible {
+  color: var(--signal);
+}
+
+.site-header__instagram:focus-visible {
+  outline: 1px solid var(--signal);
+  outline-offset: 2px;
+}
+
 .brand {
   width: max-content;
   display: inline-flex;
@@ -3036,6 +3062,17 @@ img {
     padding-left: 0;
     border-top: 1px solid var(--line);
     border-left: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .archive-home .site-header {
+    grid-template-columns: 1fr;
+    padding-block: 0.5rem;
+  }
+
+  .archive-home .site-nav {
+    justify-self: end;
   }
 }
 
