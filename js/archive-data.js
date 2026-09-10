@@ -35,7 +35,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/001_2.png"
     ],
     imagePosition: "center",
-    instagram: "",
+    instagram: "https://www.instagram.com/reel/Dc-B9BogUve/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
     location: "Tono, Iwate, JP",
     countryCode: "JP",
     countryNumeric: "392",
@@ -64,7 +64,7 @@ window.IDK_ARCHIVE = [
       "assets/archive/002_2.png"
     ],
     imagePosition: "center",
-    instagram: "",
+    instagram: "https://www.instagram.com/reel/DdAp-nlSxWk/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
     location: "Tokyo, JP",
     countryCode: "JP",
     countryNumeric: "392",
@@ -373,5 +373,35 @@ window.IDK_ARCHIVE = [
     description: "対象の存在を最初に示したのは映像ではなく、豪雨後の牧草地に残された異常な溝だった。幅約0.8mの泥溝は河川から海岸方向へほぼ直線的に続き、途中では灌木や柵柱が同じ方向へ押し倒されていた。翌夜、付近の道路を横断する大型動物が車載カメラに記録され、さらに約2時間後には増水した河川内を下流へ進む同一特徴の個体が確認された。推定体長は1.7m前後。肩部は著しく発達し、額中央には角質性とみられる単一の突起を持つ。この器官は防御よりも、泥質斜面や倒木を押し退ける際に使用されている可能性が高い。観測記録からは、対象が平常時には内陸の淡水域で生活し、一定の成長段階または環境条件を境に海へ向かう移動行動を示すことが推測されている。チロエ島には古くから、一角を持つ水棲獣『Camahueto』が川で成長し、成熟すると周囲の土地を破壊しながら海へ向かうという伝承が残されている。伝承上の誇張を除けば、その生活史と本個体の行動には無視できない一致がある。Camahuetoが架空の怪物ではなく、島内の河川と沿岸域を周期的に移動する希少な大型脊椎動物の記憶だった可能性について、現在も検討が続けられている。",
     descriptionEn: "The first indication of the subject was not visual footage, but an abnormal trench discovered across pastureland after heavy rainfall. Approximately 0.8 meters wide, the muddy channel extended almost directly from a river toward the coast, with shrubs and fence posts along its path pushed down in the same direction. The following night, a large animal was recorded crossing a nearby road by a vehicle-mounted camera. Roughly two hours later, an individual displaying the same distinguishing features was observed moving downstream through a swollen river. Its body length is estimated at approximately 1.7 meters. The shoulder region is exceptionally developed, and a single keratinous projection rises from the center of the forehead. Rather than functioning primarily as a defensive weapon, this structure may be used to force aside muddy banks, fallen timber, and dense vegetation. Available observations suggest that the species normally inhabits inland freshwater environments before exhibiting a strong seaward migration response at a particular stage of growth or under specific environmental conditions. Chiloé Island has long preserved accounts of the Camahueto, a horned aquatic creature said to grow in rivers and, upon reaching maturity, travel toward the sea while tearing through the surrounding landscape. Once folkloric exaggeration is removed, several aspects of that tradition show notable similarities to the recorded behavior of this specimen. The possibility remains under investigation that the Camahueto was not entirely imaginary, but a cultural memory of a rare large vertebrate periodically migrating between the island's rivers and coastal waters.",
     traits: ["単角器官", "降海回遊", "地形掘削"]
+  },
+  {
+  id: "013",
+  slug: "glenade-whistler",
+  name: "Glenade Whistler",
+  nameJa: "グレネード水笛獣",
+  nameJaRuby: { text: "グレネード水笛獣", reading: "グレネードスイテキジュウ" },
+  category: "aquatic",
+  categoryLabel: "水生-Aquatic",
+  risk: "gamma",
+  riskLabel: "Gamma risk",
+  status: "Observed",
+  image: [
+  "assets/archive/013_1.png",
+  "assets/archive/013_2.png"
+  ],
+  imagePosition: "center",
+  instagram: "",
+  location: "Glenade Lough, County Leitrim, IE",
+  countryCode: "IE",
+  countryNumeric: "372",
+  countryName: "Ireland",
+  countryNameJa: "アイルランド",
+  coordinates: [-8.27128, 54.3645],
+  recorded: "2024.11.03",
+  summary: "アイルランド北西部、グレネード湖の夜間監視映像に記録された大型の水棲脊椎動物。",
+  summaryEn: "A large aquatic vertebrate recorded by nighttime surveillance near Glenade Lough in northwestern Ireland.",
+  description: "記録映像では、対象は湖岸から約18m離れた水面に浮上した後、ほとんど波を立てることなく浅瀬へ接近している。全長は推定1.6〜1.9m。頭部は犬科あるいは大型のカワウソを思わせるが、胴体は著しく長く、確認できる四肢は胸部付近の一対のみで、後肢に相当する構造は認められない。遊泳時には水かきの発達した前肢と長い尾を併用し、身体をわずかに左右へ振ることで推進していると考えられる。さらに複数の記録で、対象が水面近くから細く高い鳴音を発した直後、離れた地点で別の大型生物による水面攪乱が発生している。音響解析では単純な威嚇音よりも一定の反復性が認められ、個体間通信である可能性が指摘されている。グレネード湖周辺には古くから「Dobhar Chú」と呼ばれる水の獣の伝承が残り、大型の犬やカワウソに似た生物、そして一頭が倒された際に発した鳴き声を聞いて別個体が現れたという話が伝えられている。これらを後世の創作とみなすこともできるが、未知の水棲動物が限られた個体数で湖と周辺水系に生息し、その姿と鳴音だけが断片的に記憶されたと仮定すれば、伝承に繰り返し現れる特徴との一致は無視できない。",
+  descriptionEn: "The recorded subject surfaced approximately 18 meters from the lakeshore before approaching the shallows with remarkably little disturbance to the water. Its total length is estimated at 1.6–1.9 meters. Although the head resembles that of a canid or an unusually large otter, the torso is markedly elongated, and only a single pair of limbs can be identified near the anterior portion of the body; no structures corresponding to hind limbs have been observed. During swimming, the animal appears to use its webbed forelimbs together with a long tail, producing propulsion through subtle lateral movement of the body. In several recordings, a thin, high-pitched call was emitted near the surface and followed seconds later by significant water disturbance at a distant point on the lake. Acoustic analysis indicates a repeated pattern inconsistent with a simple threat display, raising the possibility that the sound functions as communication between individuals. The area surrounding Glenade Lough has long been associated with accounts of the Dobhar Chú, a water beast described as resembling a large dog or otter. Some versions of the tradition also describe another creature appearing after hearing the cry of a wounded individual. These accounts may represent later folklore, but if a small population of unidentified aquatic animals once occupied the lake and its connected waterways, the recurring descriptions of their appearance and vocal behavior become considerably harder to dismiss as coincidence.",
+  traits: ["高周波鳴音", "後肢退縮", "尾部推進"]
   },
 ];
