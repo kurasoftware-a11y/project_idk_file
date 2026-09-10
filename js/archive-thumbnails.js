@@ -24,5 +24,7 @@ window.IDK_THUMBNAILS = {
   "assets/archive/011_1.png": "assets/thumbnails/011_1.webp",
   "assets/archive/011_2.png": "assets/thumbnails/011_2.webp",
   "assets/archive/012_1.png": "assets/thumbnails/012_1.webp",
-  "assets/archive/012_2.png": "assets/thumbnails/012_2.webp"
+  "assets/archive/012_2.png": "assets/thumbnails/012_2.webp",
+  "assets/archive/013_1.png": "assets/thumbnails/013_1.webp",
+  "assets/archive/013_2.png": "assets/thumbnails/013_2.webp"
 };
