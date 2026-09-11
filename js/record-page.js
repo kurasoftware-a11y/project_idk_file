@@ -1,6 +1,27 @@
 (function () {
   "use strict";
 
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("from") === "globe") {
+    const returnUrl = new URL("../../globe.html", window.location.href);
+    const country = params.get("country");
+    const region = params.get("region");
+    if (/^[A-Z]{2}$/.test(country || "")) returnUrl.searchParams.set("country", country);
+    if (["asia", "europe", "africa", "northAmerica", "southAmerica", "other"].includes(region)) returnUrl.searchParams.set("region", region);
+    const returnLink = document.createElement("a");
+    returnLink.className = "record-page__globe-return";
+    returnLink.href = returnUrl.href;
+    returnLink.textContent = "← 地球儀へ戻る";
+    document.querySelector(".record-page__breadcrumb")?.before(returnLink);
+    document.querySelectorAll(".record-page__pager a").forEach(link => {
+      const url = new URL(link.href);
+      url.searchParams.set("from", "globe");
+      if (country) url.searchParams.set("country", country);
+      if (region) url.searchParams.set("region", region);
+      link.href = url.href;
+    });
+  }
+
   const slideshow = document.querySelector("[data-record-slideshow]");
   if (!slideshow) return;
 

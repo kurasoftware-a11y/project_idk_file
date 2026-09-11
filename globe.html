@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="世界各地の観測地点から、IDK FILEの未確認生命体記録を探索する。">
+    <meta name="theme-color" content="#050807">
+    <title>地球儀で探す｜IDK FILE</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="css/style.css?v=20260912-2">
+    <link rel="stylesheet" href="css/globe.css?v=20260912-2">
+    <script src="js/archive-data.js?v=20260910-1" defer></script>
+    <script src="js/archive-thumbnails.js?v=20260910-1" defer></script>
+    <script src="js/globe-model.js?v=20260912-2" defer></script>
+    <script src="js/globe.js?v=20260912-3" defer></script>
+  </head>
+  <body class="globe-page">
+    <a class="skip-link" href="#globe-country">国名から記録を探す</a>
+    <header class="globe-header">
+      <a class="brand" href="index.html" aria-label="IDK FILE トップへ">
+        <img class="brand__icon" src="assets/idk-icon-64.png" alt="" width="64" height="64">
+        <span class="brand__name">IDK FILE</span>
+      </a>
+      <span class="globe-header__section" aria-hidden="true">Archive / Observation atlas</span>
+      <a class="globe-return" href="index.html#archive" data-archive-return><span aria-hidden="true">←</span> 一覧に戻る</a>
+    </header>
+    <main class="atlas">
+      <div class="atlas-heading">
+        <div>
+          <p class="atlas-kicker">Geographic index <span>/ Sector 09</span></p>
+          <h1>地球儀で探す</h1>
+        </div>
+        <p class="atlas-totals"><strong id="globe-total">—</strong> 記録 <span>/</span> <strong id="globe-country-total">—</strong> か国</p>
+      </div>
+      <div class="atlas-workspace">
+        <section class="atlas-map" aria-label="観測地点の地球儀">
+          <div class="atlas-selectors">
+            <label for="globe-region"><span>地域</span><select id="globe-region"><option value="all">世界全体</option></select></label>
+            <label for="globe-country"><span>国から探す</span><select id="globe-country"><option value="all">すべての国</option></select></label>
+          </div>
+          <div class="atlas-viewport" id="globe-viewport">
+            <div class="atlas-reticle" aria-hidden="true"></div>
+            <div id="explorer-globe" role="group" aria-label="観測マーカー"></div>
+            <div class="atlas-readout" aria-hidden="true"><span>Observation field</span><strong id="globe-readout">GLOBAL VIEW</strong></div>
+            <div class="atlas-map-status" id="globe-status" role="status">
+              <span class="atlas-kicker">Connecting</span><p>地球儀を読み込んでいます</p>
+            </div>
+            <div class="atlas-map-controls" aria-label="地球儀の操作">
+              <button type="button" id="globe-zoom-in" aria-label="地球儀を拡大" disabled>＋</button>
+              <button type="button" id="globe-zoom-out" aria-label="地球儀を縮小" disabled>−</button>
+              <button type="button" id="globe-reset" class="atlas-reset" disabled>全体へ</button>
+            </div>
+          </div>
+          <div class="atlas-map-caption">
+            <span><i aria-hidden="true"></i>数字は記録数</span>
+            <span id="globe-gesture-hint">ドラッグで回転 · マーカーを選択</span>
+          </div>
+        </section>
+        <section class="atlas-results" aria-labelledby="globe-results-title">
+          <div class="atlas-results-heading">
+            <div><p class="atlas-kicker" id="globe-results-eyebrow">All locations</p><h2 id="globe-results-title">世界の観測記録</h2></div>
+            <span class="atlas-result-count" id="globe-results-count">—</span>
+          </div>
+          <p class="atlas-results-hint" id="globe-results-hint">国・マーカーから記録を絞り込めます。</p>
+          <p class="sr-only" id="globe-announcement" role="status" aria-live="polite"></p>
+          <div class="atlas-records" id="globe-records" tabindex="0" role="region" aria-label="観測記録一覧"></div>
+        </section>
+      </div>
+      <p class="atlas-footnote" lang="en">IDK FILE <span>/</span> This archive is a fictional documentation project.</p>
+      <noscript><p>探索にはJavaScriptが必要です。<a href="archive/kappa/">河童の記録から読む</a></p></noscript>
+    </main>
+  </body>
+</html>

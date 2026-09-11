@@ -47,13 +47,17 @@
 
   const initialParams = new URLSearchParams(window.location.search);
   const countryCodes = new Set(archive.map((item) => item.countryCode).filter(Boolean));
-  const requestedCountry = (initialParams.get("country") || "all").toUpperCase();
+  let returnState = null;
+  if (initialParams.get("resume") === "globe") {
+    try { returnState = JSON.parse(sessionStorage.getItem("idk-archive-return")); } catch (_) { /* Browsing also works without storage. */ }
+  }
+  const requestedCountry = String(returnState?.country || initialParams.get("country") || "all").toUpperCase();
   let archiveUrl = new URL(window.location.href);
   let modalHistoryActive = false;
   const state = {
-    batch: Math.max(1, Number.parseInt(initialParams.get("batch") || initialParams.get("page"), 10) || 1),
-    query: "",
-    category: "all",
+    batch: Math.max(1, Number.parseInt(returnState?.batch || initialParams.get("batch") || initialParams.get("page"), 10) || 1),
+    query: typeof returnState?.query === "string" ? returnState.query : "",
+    category: archive.some(item => item.category === returnState?.category) ? returnState.category : "all",
     country: countryCodes.has(requestedCountry) ? requestedCountry : "all"
   };
 
@@ -326,6 +330,7 @@
     try {
       archiveUrl.searchParams.delete("page");
       archiveUrl.searchParams.delete("record");
+      archiveUrl.searchParams.delete("resume");
 
       if (!isPreview && state.batch > 1) archiveUrl.searchParams.set("batch", state.batch);
       else archiveUrl.searchParams.delete("batch");
@@ -582,6 +587,12 @@
     renderArchive({ reset: true });
   });
 
+  document.querySelectorAll("[data-globe-entry]").forEach(link => {
+    link.addEventListener("click", () => {
+      try { sessionStorage.setItem("idk-archive-return", JSON.stringify({ ...state, scroll: window.scrollY })); } catch (_) { /* The regular archive link remains available. */ }
+    });
+  });
+
   filterSelect?.addEventListener("change", (event) => {
     state.category = event.target.value;
     renderArchive({ reset: true });
@@ -674,8 +685,24 @@
   });
 
   initializeCategories();
+  if (searchInput) searchInput.value = state.query;
+  if (filterSelect) filterSelect.value = state.category;
   syncCountryFilterUi();
   renderArchive();
+
+  if (Number.isFinite(returnState?.scroll)) {
+    if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+    let userInteracted = false;
+    ["wheel", "touchstart", "pointerdown", "keydown"].forEach(type => {
+      window.addEventListener(type, () => { userInteracted = true; }, { once: true, passive: true });
+    });
+    const restoreScroll = () => window.requestAnimationFrame(() => window.scrollTo({ top: Math.max(0, returnState.scroll), behavior: "instant" }));
+    window.requestAnimationFrame(restoreScroll);
+    // Fonts and lazy image layout can shift the page after the initial frame.
+    const restoreSettledLayout = () => { if (!userInteracted) restoreScroll(); };
+    window.addEventListener("load", restoreSettledLayout, { once: true });
+    document.fonts?.ready.then(restoreSettledLayout);
+  }
 
   if (!isPreview && archiveSentinel && "IntersectionObserver" in window) {
     const loadObserver = new IntersectionObserver((entries) => {

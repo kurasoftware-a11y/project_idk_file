@@ -10,10 +10,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="stylesheet" href="css/style.css?v=20260907-1">
+    <link rel="stylesheet" href="css/style.css?v=20260912-2">
     <script src="js/archive-data.js?v=20260910-1" defer></script>
     <script src="js/archive-thumbnails.js?v=20260910-1" defer></script>
-    <script src="js/archive-render.js?v=20260908-1" defer></script>
+    <script src="js/archive-render.js?v=20260912-3" defer></script>
     <script src="js/archive-globe.js?v=20260908-1" defer></script>
   </head>
   <body class="archive-home">
@@ -110,6 +110,11 @@
           <span>Region filter active</span>
           <strong data-archive-country-name></strong>
           <button type="button" data-archive-country-clear>Clear <span aria-hidden="true">×</span></button>
+        </div>
+
+        <div class="archive-view-switch" aria-label="記録の探し方">
+          <span aria-current="page">一覧から探す</span>
+          <a href="globe.html?from=archive" data-globe-entry>地球儀で探す <span aria-hidden="true">↗</span></a>
         </div>
 
         <div class="archive-toolbar" aria-label="アーカイブ絞り込み">

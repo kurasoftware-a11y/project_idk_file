@@ -98,8 +98,8 @@ function createPage(record, index) {
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
     <link rel="preload" as="image" href="../../${escapeHtml(getImages(record)[0])}">
-    <link rel="stylesheet" href="../../css/style.css?v=20260825-2">
-    <script src="../../js/record-page.js?v=20260822-1" defer></script>
+    <link rel="stylesheet" href="../../css/style.css?v=20260912-2">
+    <script src="../../js/record-page.js?v=20260912-2" defer></script>
   </head>
   <body class="record-page">
     <a class="skip-link" href="#record-content">観測記録へ移動</a>
