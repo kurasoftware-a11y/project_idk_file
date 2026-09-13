@@ -3,8 +3,8 @@
  *
  * 画像配置： assets/archive/
  * 新規追加時、下の配列へ同じ形式のオブジェクトを追加する。
- * 画像追加・差し替え後は python scripts/generate-thumbnails.py を実行する（Pillowが必要）。
- * slug は個別ページのURLに使用する。追加・編集後は node scripts/generate-record-pages.mjs を実行する。
+ * 追加・差し替え後は python scripts/sync-archive.py --id 013 を実行する（IDは対象に置換、Python + Pillow / Node.jsが必要）。
+ * WebP・個別ページ・Last sync・キャッシュ・件数の更新と検証を一括実行する。slug は個別ページのURLに使用する。
  * image は文字列または配列で指定可能。複数指定した場合は自動で切り替わる。
  * imagePosition は詳細画像の縦位置。"top" = 上端、"center" = 中央、"bottom" = 下端。省略時は "center"。
  * 画像ごとに変える場合は、image と同じ順番で imagePosition: ["top", "bottom"] のように指定できる。
@@ -403,5 +403,36 @@ window.IDK_ARCHIVE = [
   description: "記録映像では、対象は湖岸から約18m離れた水面に浮上した後、ほとんど波を立てることなく浅瀬へ接近している。全長は推定1.6〜1.9m。頭部は犬科あるいは大型のカワウソを思わせるが、胴体は著しく長く、確認できる四肢は胸部付近の一対のみで、後肢に相当する構造は認められない。遊泳時には水かきの発達した前肢と長い尾を併用し、身体をわずかに左右へ振ることで推進していると考えられる。さらに複数の記録で、対象が水面近くから細く高い鳴音を発した直後、離れた地点で別の大型生物による水面攪乱が発生している。音響解析では単純な威嚇音よりも一定の反復性が認められ、個体間通信である可能性が指摘されている。グレネード湖周辺には古くから「Dobhar Chú」と呼ばれる水の獣の伝承が残り、大型の犬やカワウソに似た生物、そして一頭が倒された際に発した鳴き声を聞いて別個体が現れたという話が伝えられている。これらを後世の創作とみなすこともできるが、未知の水棲動物が限られた個体数で湖と周辺水系に生息し、その姿と鳴音だけが断片的に記憶されたと仮定すれば、伝承に繰り返し現れる特徴との一致は無視できない。",
   descriptionEn: "The recorded subject surfaced approximately 18 meters from the lakeshore before approaching the shallows with remarkably little disturbance to the water. Its total length is estimated at 1.6–1.9 meters. Although the head resembles that of a canid or an unusually large otter, the torso is markedly elongated, and only a single pair of limbs can be identified near the anterior portion of the body; no structures corresponding to hind limbs have been observed. During swimming, the animal appears to use its webbed forelimbs together with a long tail, producing propulsion through subtle lateral movement of the body. In several recordings, a thin, high-pitched call was emitted near the surface and followed seconds later by significant water disturbance at a distant point on the lake. Acoustic analysis indicates a repeated pattern inconsistent with a simple threat display, raising the possibility that the sound functions as communication between individuals. The area surrounding Glenade Lough has long been associated with accounts of the Dobhar Chú, a water beast described as resembling a large dog or otter. Some versions of the tradition also describe another creature appearing after hearing the cry of a wounded individual. These accounts may represent later folklore, but if a small population of unidentified aquatic animals once occupied the lake and its connected waterways, the recurring descriptions of their appearance and vocal behavior become considerably harder to dismiss as coincidence.",
   traits: ["高周波鳴音", "後肢退縮", "尾部推進"]
+  },
+  {
+  id: "014",
+  slug: "pine-barrens-forkwing",
+  name: "Pine Barrens Forkwing",
+  nameJa: "パインバレンズ裂尾翼獣",
+  nameJaRuby: { text: "パインバレンズ裂尾翼獣", reading: "パインバレンズ・レツビヨクジュウ" },
+  category: "aerial",
+  categoryLabel: "飛翔-Aerial",
+  risk: "gamma",
+  riskLabel: "Gamma risk",
+  status: "Observed",
+  image: [
+  "assets/archive/014_1.png",
+  "assets/archive/014_2.png",
+  "assets/archive/014_3.png"
+  ],
+  imagePosition: "center",
+  instagram: "",
+  location: "Pine Barrens, New Jersey, US",
+  countryCode: "US",
+  countryNumeric: "840",
+  countryName: "United States",
+  countryNameJa: "アメリカ合衆国",
+  coordinates: [-74.6500, 39.7500],
+  recorded: "2014.11.09",
+  summary: "ニュージャージー州パインバレンズの湿地上空で記録された、大型の飛膜と異常に発達した後肢を持つ夜行性滑空生物。",
+  summaryEn: "A nocturnal gliding organism with extensive flight membranes and unusually developed hind limbs, recorded above a wetland in the Pine Barrens of New Jersey.",
+  description: "最初に記録されたのは飛翔中ではなく、湿地の浅瀬へ降下する瞬間だった。対象は水面すれすれまで高度を落とすと、異常に長い後肢を前方へ伸ばし、その直後に飛膜を急激に畳んで着地した。翼のように見える構造には鳥類に見られる羽毛や独立した翼骨は確認されておらず、前肢から体側、さらに後肢付近まで連続する皮膜によって滑空している可能性が高い。地上では後肢を主体として移動し、足先に発達した二本の大型指が泥へ深く沈む。この足跡は条件によっては割れた蹄のようにも見える。頭部には大きな耳介と前方へ伸びた顔面構造があり、暗所では馬や大型のコウモリを思わせる輪郭を形成する。眼球は人工光を受けると赤橙色に強く反射するが、自発光を示す証拠はない。ニュージャージー州南部には古くから、森や湿地を飛び回る有翼の怪物『ジャージー・デビル』の伝承が残されている。角、蹄、翼、長い尾など、その姿は記録ごとに一定しない。しかし、夜間に短時間だけ目撃された本種の飛膜、後肢、尾部構造がそれぞれ別の動物的特徴として解釈されたなら、互いに矛盾する複数の証言が生まれた理由の一部を説明できる。IDK FILEでは現在、この地域の伝承と本種を同一視していない。ただし、伝承形成以前から同様の生物がパインバレンズに生息していた可能性については、継続調査対象としている。",
+  descriptionEn: "The first recorded observation did not capture the subject in sustained flight, but rather during its descent into a shallow wetland. After dropping to just above the water surface, it extended its unusually long hind limbs forward and rapidly folded the membrane-like structures along its body immediately before landing. No feathers or independently articulated wing bones comparable to those of birds were identified. Instead, the apparent wings are believed to consist of a continuous membrane extending from the forelimbs along the sides of the torso and toward the hind limbs, suggesting that the organism relies primarily on gliding rather than powered flight. On the ground, locomotion is dominated by the hind limbs. Two enlarged digits at the end of each foot sink deeply into soft mud and, under certain conditions, can leave impressions resembling split hooves. The head bears large external ears and an elongated facial structure, producing a silhouette that may resemble either a horse or an oversized bat when viewed in darkness. Its eyes reflect artificial light with an intense red-orange shine, although no evidence of biological luminescence has been observed. Southern New Jersey has long preserved stories of the Jersey Devil, a winged creature said to inhabit the forests and wetlands of the region. Descriptions vary considerably, often combining horns, hooves, wings, and an elongated tail. If brief nocturnal sightings of this species caused its membrane, hind limbs, and tail structures to be interpreted as characteristics belonging to different familiar animals, some of the contradictory historical descriptions may be understandable. IDK FILE does not currently classify this organism and the legendary Jersey Devil as the same entity. However, the possibility that similar organisms inhabited the Pine Barrens before the formation of the legend remains under active investigation.",
+  traits: ["広域飛膜", "後肢滑空着地", "夜間眼球反射"]
   },
 ];
